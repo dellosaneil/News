@@ -1,12 +1,10 @@
 package com.thelazybattley.core.di.network
 
-import com.thelazybattley.core.BuildConfig
 import com.thelazybattley.core.network.NewsService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
