@@ -1,24 +1,20 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
-
 }
 
 android {
-    namespace = "com.thelazybattley.news"
+    namespace = "com.thelazybattley.feature"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.thelazybattley.news"
         minSdk = 30
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -64,5 +60,4 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(project(":core"))
-    implementation(project(":feature"))
 }

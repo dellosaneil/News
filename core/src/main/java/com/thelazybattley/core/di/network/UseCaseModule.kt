@@ -1,7 +1,7 @@
 package com.thelazybattley.core.di.network
 
-import com.thelazybattley.core.network.usecase.FetchNewsByKeyword
-import com.thelazybattley.core.network.usecase.impl.FetchNewsByKeywordImpl
+import com.thelazybattley.core.network.usecase.FetchNewsByKeywordUseCase
+import com.thelazybattley.core.network.usecase.impl.FetchNewsByKeywordUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,6 +14,6 @@ abstract class UseCaseModule {
 
     @ViewModelScoped
     @Binds
-    abstract fun bindFetchNewsByKeyword(impl: FetchNewsByKeywordImpl): FetchNewsByKeyword
+    abstract fun bindFetchNewsByKeyword(impl: FetchNewsByKeywordUseCaseImpl): FetchNewsByKeywordUseCase
 
 }

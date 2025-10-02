@@ -2,7 +2,7 @@ package com.thelazybattley.core.network.usecase
 
 import com.thelazybattley.core.network.data.news.News
 
-interface FetchNewsByKeyword {
+interface FetchNewsByKeywordUseCase {
 
-    suspend fun fetchNewsByKeyword(keyword: String) : Result<News>
+    suspend operator fun invoke(keyword: String) : Result<News>
 }
