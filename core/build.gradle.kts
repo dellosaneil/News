@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import java.util.Properties
 
 plugins {
@@ -6,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -45,6 +45,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
@@ -53,9 +56,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.bundles.network)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    implementation(libs.compose.material)
 }
