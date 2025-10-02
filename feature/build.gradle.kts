@@ -51,7 +51,6 @@ dependencies {
     testImplementation(libs.junit)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
     implementation(libs.bundles.network)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)

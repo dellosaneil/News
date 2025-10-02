@@ -10,6 +10,6 @@ enum class Destination(
     @DrawableRes val icon: Int
 ) {
     HOME(route = "home", label = R.string.home, icon = R.drawable.ic_home),
-    SEARCH(route = "search", label = R.string.search, icon = R.drawable.ic_search),
+    SEARCH(route = "search", label = R.string.search, icon = com.thelazybattley.core.R.drawable.ic_search),
     BOOKMARK(route = "bookmark", label = R.string.bookmark, icon = R.drawable.ic_bookmark)
 }

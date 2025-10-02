@@ -22,6 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.thelazybattley.core.ui.AzureRadiance
+import com.thelazybattley.feature.home.ui.HomeScreen
 
 @Composable
 fun NewsNavigation(modifier: Modifier = Modifier) {
@@ -81,7 +82,7 @@ fun AppNavHost(
         Destination.entries.forEach { destination ->
             composable(destination.route) {
                 when (destination) {
-                    Destination.HOME -> Text("HOME")
+                    Destination.HOME -> HomeScreen()
                     Destination.SEARCH -> Text("SEARCH")
                     Destination.BOOKMARK -> Text("BOOKMARK")
                 }
