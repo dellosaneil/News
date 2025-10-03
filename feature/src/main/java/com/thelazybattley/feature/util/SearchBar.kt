@@ -23,16 +23,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thelazybattley.core.ui.theme.LocalNewsColors
+import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.ui.theme.NewsTheme
 
 @Composable
 fun SearchBar(modifier: Modifier = Modifier) {
+    val typography = LocalNewsTypography.current
     val colors = LocalNewsColors.current
     var value by rememberSaveable { mutableStateOf("") }
+    val color = if (value.isEmpty()) colors.grayScale else colors.black
     BasicTextField(
         modifier = modifier
             .fillMaxWidth()
@@ -42,6 +44,9 @@ fun SearchBar(modifier: Modifier = Modifier) {
         onValueChange = {
             value = it
         },
+        textStyle = typography.smallText.copy(
+            color = color
+        ),
         decorationBox = { innerTextField ->
             Row(
                 modifier = Modifier
@@ -55,7 +60,6 @@ fun SearchBar(modifier: Modifier = Modifier) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(space = 8.dp)
             ) {
-                val color = if (value.isEmpty()) colors.grayScale else colors.black
                 Spacer(modifier = Modifier.width(width = 8.dp))
                 Icon(
                     painter = painterResource(id = com.thelazybattley.feature.R.drawable.ic_search),
@@ -68,7 +72,7 @@ fun SearchBar(modifier: Modifier = Modifier) {
                             Text(
                                 text = stringResource(id = com.thelazybattley.feature.R.string.search),
                                 color = color,
-                                style = TextStyle.Default
+                                style = typography.smallText
                             )
                             innerTextField()
                         }

@@ -20,6 +20,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.thelazybattley.core.ui.theme.LocalNewsColors
+import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.feature.home.ui.HomeScreen
 
 @Composable
@@ -51,7 +52,8 @@ fun NewsNavigation(modifier: Modifier = Modifier) {
                         label = {
                             Text(
                                 text = stringResource(id = destination.label),
-                                color = tint
+                                color = tint,
+                                style = LocalNewsTypography.current.smallText
                             )
                         }
                     )

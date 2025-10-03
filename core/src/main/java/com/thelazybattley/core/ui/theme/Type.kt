@@ -17,7 +17,7 @@ data class NewsTypography(
     val xSmallLink: TextStyle
 )
 
-fun newsTypography() : NewsTypography {
+fun newsTypography(): NewsTypography {
     val provider = GoogleFont.Provider(
         providerAuthority = "com.google.android.gms.fonts",
         providerPackage = "com.google.android.gms",
@@ -25,7 +25,8 @@ fun newsTypography() : NewsTypography {
     )
     val fontName = GoogleFont("Poppins")
     val fontFamily = FontFamily(
-        Font(googleFont = fontName, fontProvider = provider)
+        Font(googleFont = fontName, fontProvider = provider, weight = FontWeight.SemiBold),
+        Font(googleFont = fontName, fontProvider = provider, weight = FontWeight.Normal)
     )
     return NewsTypography(
         smallText = TextStyle(
