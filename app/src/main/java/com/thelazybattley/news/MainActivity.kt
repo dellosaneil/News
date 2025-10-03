@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.thelazybattley.news.navigation.NewsNavigation
-import com.thelazybattley.news.ui.theme.NewsTheme
+import com.thelazybattley.core.ui.theme.NewsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -21,17 +21,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.thelazybattley.core.ui.Black
-import com.thelazybattley.core.ui.MulledWine
+import com.thelazybattley.core.ui.theme.LocalNewsColors
+import com.thelazybattley.core.ui.theme.NewsTheme
 
 @Composable
 fun SearchBar(modifier: Modifier = Modifier) {
+    val colors = LocalNewsColors.current
     var value by rememberSaveable { mutableStateOf("") }
     BasicTextField(
         modifier = modifier
@@ -49,18 +49,18 @@ fun SearchBar(modifier: Modifier = Modifier) {
                     .clip(shape = RoundedCornerShape(size = 4.dp))
                     .border(
                         width = 1.dp,
-                        color = Color(0xff4E4B66),
+                        color = colors.grayScale,
                         shape = RoundedCornerShape(size = 4.dp)
                     ),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(space = 8.dp)
             ) {
-                val color = if (value.isEmpty()) MulledWine else Black
+                val color = if (value.isEmpty()) colors.grayScale else colors.black
                 Spacer(modifier = Modifier.width(width = 8.dp))
                 Icon(
                     painter = painterResource(id = com.thelazybattley.feature.R.drawable.ic_search),
                     contentDescription = null,
-                    tint = MulledWine
+                    tint = colors.grayScale
                 )
                 Box(modifier = Modifier.weight(1f)) {
                     if (value.isEmpty()) {
@@ -87,5 +87,7 @@ fun SearchBar(modifier: Modifier = Modifier) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun PreviewSearchBar() {
-    SearchBar(modifier = Modifier)
+    NewsTheme {
+        SearchBar(modifier = Modifier)
+    }
 }

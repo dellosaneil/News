@@ -20,8 +20,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.thelazybattley.core.ui.AzureRadiance
-import com.thelazybattley.core.ui.MulledWine
+import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.feature.home.ui.HomeScreen
 
 @Composable
@@ -32,10 +31,11 @@ fun NewsNavigation(modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier,
         bottomBar = {
+            val colors = LocalNewsColors.current
             NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
                 Destination.entries.forEachIndexed { index, destination ->
                     val isSelected = selectedDestination == index
-                    val tint = if (isSelected) AzureRadiance else MulledWine
+                    val tint = if (isSelected) colors.primary else colors.grayScale
                     NavigationBarItem(
                         selected = isSelected,
                         onClick = {

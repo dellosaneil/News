@@ -1,4 +1,4 @@
-package com.thelazybattley.core.ui
+package com.thelazybattley.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
