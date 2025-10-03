@@ -3,7 +3,6 @@ package com.thelazybattley.news.navigation
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
@@ -22,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.thelazybattley.core.ui.AzureRadiance
+import com.thelazybattley.core.ui.MulledWine
 import com.thelazybattley.feature.home.ui.HomeScreen
 
 @Composable
@@ -35,7 +35,7 @@ fun NewsNavigation(modifier: Modifier = Modifier) {
             NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
                 Destination.entries.forEachIndexed { index, destination ->
                     val isSelected = selectedDestination == index
-                    val tint = if (isSelected) AzureRadiance else LocalContentColor.current
+                    val tint = if (isSelected) AzureRadiance else MulledWine
                     NavigationBarItem(
                         selected = isSelected,
                         onClick = {
@@ -83,7 +83,7 @@ fun AppNavHost(
             composable(destination.route) {
                 when (destination) {
                     Destination.HOME -> HomeScreen()
-                    Destination.SEARCH -> Text("SEARCH")
+                    Destination.EXPLORE -> Text("SEARCH")
                     Destination.BOOKMARK -> Text("BOOKMARK")
                 }
             }

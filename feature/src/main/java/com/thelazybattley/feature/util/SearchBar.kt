@@ -24,9 +24,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.thelazybattley.core.R
+import com.thelazybattley.core.ui.Black
+import com.thelazybattley.core.ui.MulledWine
 
 @Composable
 fun SearchBar(modifier: Modifier = Modifier) {
@@ -53,15 +55,24 @@ fun SearchBar(modifier: Modifier = Modifier) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(space = 8.dp)
             ) {
+                val color = if (value.isEmpty()) MulledWine else Black
                 Spacer(modifier = Modifier.width(width = 8.dp))
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_search),
-                    contentDescription = null
+                    painter = painterResource(id = com.thelazybattley.feature.R.drawable.ic_search),
+                    contentDescription = null,
+                    tint = MulledWine
                 )
                 Box(modifier = Modifier.weight(1f)) {
                     if (value.isEmpty()) {
-                        innerTextField()
-                        Text(text = stringResource(id = com.thelazybattley.feature.R.string.search))
+                        Box {
+                            Text(
+                                text = stringResource(id = com.thelazybattley.feature.R.string.search),
+                                color = color,
+                                style = TextStyle.Default
+                            )
+                            innerTextField()
+                        }
+
                     } else {
                         innerTextField()
                     }
