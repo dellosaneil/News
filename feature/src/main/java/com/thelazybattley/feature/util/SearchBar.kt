@@ -4,8 +4,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Icon
@@ -31,7 +34,8 @@ fun SearchBar(modifier: Modifier = Modifier) {
     BasicTextField(
         modifier = modifier
             .fillMaxWidth()
-            .padding(all = 24.dp),
+            .padding(all = 24.dp)
+            .height(height = 48.dp),
         value = value,
         onValueChange = {
             value = it
@@ -40,21 +44,21 @@ fun SearchBar(modifier: Modifier = Modifier) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(shape = RoundedCornerShape(size = 8.dp))
+                    .clip(shape = RoundedCornerShape(size = 4.dp))
                     .border(
                         width = 1.dp,
                         color = Color(0xff4E4B66),
-                        shape = RoundedCornerShape(size = 8.dp)
-                    )
-                    .padding(all = 16.dp),
+                        shape = RoundedCornerShape(size = 4.dp)
+                    ),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(space = 8.dp)
             ) {
+                Spacer(modifier = Modifier.width(width = 8.dp))
                 Icon(
                     painter = painterResource(id = R.drawable.ic_search),
                     contentDescription = null
                 )
-                Box {
+                Box(modifier = Modifier.weight(1f)) {
                     if (value.isEmpty()) {
                         innerTextField()
                         Text(text = stringResource(id = com.thelazybattley.feature.R.string.search))
@@ -62,6 +66,7 @@ fun SearchBar(modifier: Modifier = Modifier) {
                         innerTextField()
                     }
                 }
+                Spacer(modifier = Modifier.width(8.dp))
             }
         },
         singleLine = true
