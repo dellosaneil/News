@@ -10,12 +10,19 @@ val LocalNewsColors = staticCompositionLocalOf<NewsColors> {
     error("No colors provided")
 }
 
+val LocalNewsTypography = staticCompositionLocalOf<NewsTypography> {
+    error("No typography provided")
+}
+
 @Composable
 fun NewsTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    CompositionLocalProvider(LocalNewsColors provides lightColors()) {
+    CompositionLocalProvider(
+        LocalNewsColors provides lightColors(),
+        LocalNewsTypography provides newsTypography()
+    ) {
         content()
     }
 }

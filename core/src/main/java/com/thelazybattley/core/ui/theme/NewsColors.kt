@@ -8,7 +8,6 @@ data class NewsColors(
     val black: Color
 )
 
-
 fun lightColors(
     grayScale: Color = MulledWine,
     primary: Color = AzureRadiance,

@@ -1,6 +1,5 @@
 package com.thelazybattley.news.navigation
 
-//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
