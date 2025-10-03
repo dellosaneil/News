@@ -34,7 +34,7 @@ fun SearchBar(modifier: Modifier = Modifier) {
     BasicTextField(
         modifier = modifier
             .fillMaxWidth()
-            .padding(all = 24.dp)
+            .padding(all = 16.dp)
             .height(height = 48.dp),
         value = value,
         onValueChange = {
