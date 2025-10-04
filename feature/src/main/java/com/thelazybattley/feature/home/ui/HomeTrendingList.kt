@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package com.thelazybattley.feature.home.ui
 
 import androidx.compose.foundation.layout.Arrangement
@@ -16,17 +14,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
+import com.skydoves.landscapist.glide.GlideImage
 import com.thelazybattley.core.network.data.news.News
 import com.thelazybattley.core.network.data.news.NewsArticle
 import com.thelazybattley.core.network.data.news.NewsSource
@@ -78,7 +77,6 @@ fun HomeTrendingList(
     }
 }
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 private fun TrendingNewsCard(
     modifier: Modifier = Modifier,
@@ -101,14 +99,16 @@ private fun TrendingNewsCard(
             modifier = Modifier.padding(all = 8.dp)
         ) {
             GlideImage(
-                model = article.urlToImage,
-                contentDescription = null,
+                imageModel = { article.urlToImage },
                 modifier = Modifier
                     .clip(
                         shape = RoundedCornerShape(size = 8.dp)
                     )
                     .height(150.dp)
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                loading = {
+
+                }
 
             )
             Text(
@@ -128,8 +128,7 @@ private fun TrendingNewsCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 GlideImage(
-                    model = R.drawable.ic_notification,
-                    contentDescription = null,
+                    imageModel = { R.drawable.ic_notification },
                     modifier = Modifier.size(size = 20.dp)
                 )
                 Text(
@@ -137,10 +136,10 @@ private fun TrendingNewsCard(
                     style = typography.xSmallText,
                     color = color.grayScale
                 )
-                GlideImage(
-                    model = R.drawable.ic_time,
+                Icon(
                     modifier = Modifier.size(size = 14.dp),
-                    contentDescription = null
+                    contentDescription = null,
+                    painter = painterResource(id = R.drawable.ic_time)
                 )
                 Text(
                     text = article.timePassed,

@@ -56,7 +56,7 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     implementation(libs.navigation.compose)
     implementation(libs.hilt.navigation.compose)
-    implementation(libs.glide.compose)
+    implementation(libs.landscapist.glide)
 
     implementation(project(":core"))
 }
