@@ -61,14 +61,11 @@ fun HomeTrendingList(
                 color = colors.grayScale
             )
         }
-        if (news == null) {
-            return@Column
-        }
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(space = 16.dp)
         ) {
-            items(items = news.articles) { article ->
+            items(items = news?.articles ?: emptyList()) { article ->
                 TrendingNewsCard(
                     article = article
                 )
