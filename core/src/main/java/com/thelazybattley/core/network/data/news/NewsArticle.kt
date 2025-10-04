@@ -8,5 +8,6 @@ data class NewsArticle(
     val source: NewsSource,
     val title: String,
     val url: String,
-    val urlToImage: String
+    val urlToImage: String,
+    val timePassed: String
 )

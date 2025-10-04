@@ -30,7 +30,7 @@ import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.ui.theme.NewsTheme
 
 @Composable
-fun SearchBar(modifier: Modifier = Modifier) {
+fun CommonSearchBar(modifier: Modifier = Modifier) {
     val typography = LocalNewsTypography.current
     val colors = LocalNewsColors.current
     var value by rememberSaveable { mutableStateOf("") }
@@ -92,6 +92,6 @@ fun SearchBar(modifier: Modifier = Modifier) {
 @Composable
 private fun PreviewSearchBar() {
     NewsTheme {
-        SearchBar(modifier = Modifier)
+        CommonSearchBar(modifier = Modifier)
     }
 }
