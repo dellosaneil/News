@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun fetchTrendingNews() {
-        fetchNewsUseCase(keyword = null, path = NetworkPath.TOP_HEADLINES, pageSize = 6).fold(
+        fetchNewsUseCase(keyword = null, path = NetworkPath.TOP_HEADLINES, pageSize = 10).fold(
             onSuccess = { result ->
                 _viewState.update { state ->
                     state.copy(

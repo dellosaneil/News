@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -28,7 +29,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.glide.GlideImage
 import com.thelazybattley.core.network.data.news.NewsArticle
-import com.thelazybattley.core.network.data.news.NewsSource
+import com.thelazybattley.core.ui.shimmerEffect
 import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.ui.theme.NewsTheme
@@ -67,6 +68,12 @@ fun HomeTrendingList(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(space = 16.dp)
         ) {
+            if (articles.isLoading) {
+                items(5) {
+                    TrendingCardShimmer()
+                }
+                return@LazyRow
+            }
             items(items = articles.articles) { article ->
                 TrendingNewsCard(
                     article = article
@@ -106,14 +113,24 @@ private fun TrendingNewsCard(
                     .height(150.dp)
                     .fillMaxWidth(),
                 loading = {
-
+                    Spacer(
+                        modifier = Modifier
+                            .shimmerEffect()
+                            .clip(
+                                shape = RoundedCornerShape(size = 8.dp)
+                            )
+                            .height(150.dp)
+                            .fillMaxWidth()
+                    )
                 }
 
             )
             Text(
                 text = article.author,
                 style = typography.smallText,
-                color = color.grayScale
+                color = color.grayScale,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
             )
             Text(
                 text = article.title,
@@ -133,7 +150,9 @@ private fun TrendingNewsCard(
                 Text(
                     text = article.source.name,
                     style = typography.xSmallText,
-                    color = color.grayScale
+                    color = color.grayScale,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
                 )
                 Icon(
                     modifier = Modifier.size(size = 14.dp),
@@ -144,33 +163,96 @@ private fun TrendingNewsCard(
                     text = article.timePassed,
                     style = typography.xSmallText,
                     color = color.grayScale,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
                 )
             }
         }
     }
 }
 
-@Preview
 @Composable
-private fun PreviewTrendingNewsCard() {
-    NewsTheme {
-        TrendingNewsCard(
-            article = NewsArticle(
-                author = "Author",
-                content = "Content",
-                description = "Description",
-                publishedAt = "2023-09-15T1",
-                source = NewsSource(
-                    id = "id",
-                    name = "BBC"
-                ),
-                title = "Title",
-                url = "https://www.google.com",
-                urlToImage = "https://techcrunch.com/wp-content/uploads/2025/10/google-jules.jpg?resize=1200,800",
-                timePassed = "90 days ago"
-            )
+private fun TrendingCardShimmer(modifier: Modifier = Modifier) {
+    val color = LocalNewsColors.current
+    Card(
+        modifier = modifier.width(275.dp),
+        shape = RoundedCornerShape(size = 8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = color.white
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 4.dp
         )
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(space = 8.dp),
+            modifier = Modifier.padding(all = 8.dp)
+        ) {
+            Spacer(
+                modifier = Modifier
+                    .clip(
+                        shape = RoundedCornerShape(size = 8.dp)
+                    )
+                    .shimmerEffect()
+                    .height(150.dp)
+                    .fillMaxWidth()
+            )
+            Spacer(
+                modifier = Modifier
+                    .clip(
+                        shape = RoundedCornerShape(size = 4.dp)
+                    )
+                    .shimmerEffect()
+                    .size(width = 36.dp, height = 12.dp)
+            )
+            Spacer(
+                modifier = Modifier
+                    .clip(
+                        shape = RoundedCornerShape(size = 4.dp)
+                    )
+                    .shimmerEffect()
+                    .fillMaxWidth()
+                    .height(16.dp)
+            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Spacer(
+                    modifier = Modifier
+                        .clip(
+                            shape = CircleShape
+                        )
+                        .shimmerEffect()
+                        .size(size = 20.dp)
+                )
+                Spacer(
+                    modifier = Modifier
+                        .clip(
+                            shape = RoundedCornerShape(size = 4.dp)
+                        )
+                        .shimmerEffect()
+                        .size(width = 24.dp, height = 14.dp)
+                )
+                Spacer(
+                    modifier = Modifier
+                        .clip(
+                            shape = RoundedCornerShape(size = 4.dp)
+                        )
+                        .shimmerEffect()
+                        .size(size = 14.dp)
+                )
+                Spacer(
+                    modifier = Modifier
+                        .clip(
+                            shape = RoundedCornerShape(size = 4.dp)
+                        )
+                        .shimmerEffect()
+                        .height(14.dp)
+                        .weight(1f)
+                )
+            }
+        }
     }
 }
 

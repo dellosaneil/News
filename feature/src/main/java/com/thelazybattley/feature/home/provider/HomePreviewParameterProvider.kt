@@ -22,7 +22,21 @@ class HomePreviewParameterProvider : PreviewParameterProvider<HomeTrendingNewsSt
                         ),
                         title = "Title",
                         url = "https://www.google.com",
-                        urlToImage = "https://techcrunch.com/wp-content/uploads/2025/10/google-jules.jpg?resize=1200,800",
+                        urlToImage = "",
+                        timePassed = "90 days ago"
+                    ),
+                    NewsArticle(
+                        author = "Author",
+                        content = "Content",
+                        description = "Description",
+                        publishedAt = "2023-09-15T1",
+                        source = NewsSource(
+                            id = "id",
+                            name = "BBC"
+                        ),
+                        title = "Title",
+                        url = "https://www.google.com",
+                        urlToImage = "https://sportshub.cbsistatic.com/i/r/2025/09/30/502b0cbc-3743-45bd-9e2c-c0b7653b2b1e/thumbnail/1200x675/134de9ae08c980dab57d37946699f896/aaron-judge-new-york-yankees-imagn-images-8.jpg",
                         timePassed = "90 days ago"
                     )
                 ),
