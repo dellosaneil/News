@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.room)
 }
 
 android {
@@ -48,6 +49,9 @@ android {
     buildFeatures {
         compose = true
     }
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
 }
 
 dependencies {
@@ -62,4 +66,5 @@ dependencies {
     implementation(libs.compose.material)
     implementation(libs.google.fonts)
     implementation(libs.bundles.room)
+    ksp(libs.room.compile)
 }
