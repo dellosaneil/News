@@ -1,4 +1,4 @@
-package com.thelazybattley.feature.home
+package com.thelazybattley.feature.home.state
 
 import com.thelazybattley.core.network.data.news.NewsArticle
 

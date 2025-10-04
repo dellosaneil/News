@@ -14,7 +14,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.NewsTheme
 import com.thelazybattley.feature.home.HomeViewModel
-import com.thelazybattley.feature.home.HomeViewState
+import com.thelazybattley.feature.home.state.HomeViewState
 import com.thelazybattley.feature.util.CommonSearchBar
 
 

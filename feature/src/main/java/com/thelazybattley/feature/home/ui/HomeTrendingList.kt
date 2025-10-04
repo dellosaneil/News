@@ -34,8 +34,8 @@ import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.ui.theme.NewsTheme
 import com.thelazybattley.feature.R
-import com.thelazybattley.feature.home.HomeTrendingNewsState
-import com.thelazybattley.feature.home.provider.HomePreviewParameterProvider
+import com.thelazybattley.feature.home.provider.HomeTrendingNewsStateProvider
+import com.thelazybattley.feature.home.state.HomeTrendingNewsState
 
 @Composable
 fun HomeTrendingList(
@@ -147,8 +147,26 @@ private fun TrendingNewsCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 GlideImage(
-                    imageModel = { R.drawable.ic_notification },
-                    modifier = Modifier.size(size = 20.dp)
+                    imageModel = { article.source.imageUrl },
+                    modifier = Modifier
+                        .clip(shape = CircleShape)
+                        .size(size = 20.dp),
+                    loading = {
+                        Spacer(
+                            modifier = Modifier
+                                .clip(shape = CircleShape)
+                                .shimmerEffect()
+                                .size(size = 20.dp)
+                        )
+                    },
+                    failure = {
+                        Spacer(
+                            modifier = Modifier
+                                .clip(shape = CircleShape)
+                                .shimmerEffect()
+                                .size(size = 20.dp)
+                        )
+                    }
                 )
                 Text(
                     text = article.source.name,
@@ -262,7 +280,7 @@ private fun TrendingCardShimmer(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun PreviewHomeTrendingList(
-    @PreviewParameter(HomePreviewParameterProvider::class) state: HomeTrendingNewsState
+    @PreviewParameter(HomeTrendingNewsStateProvider::class) state: HomeTrendingNewsState
 ) {
     NewsTheme {
         HomeTrendingList(

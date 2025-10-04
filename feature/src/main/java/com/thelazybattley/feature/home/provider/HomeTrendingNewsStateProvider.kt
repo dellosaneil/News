@@ -3,9 +3,9 @@ package com.thelazybattley.feature.home.provider
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.thelazybattley.core.network.data.news.NewsArticle
 import com.thelazybattley.core.network.data.news.NewsSource
-import com.thelazybattley.feature.home.HomeTrendingNewsState
+import com.thelazybattley.feature.home.state.HomeTrendingNewsState
 
-class HomePreviewParameterProvider : PreviewParameterProvider<HomeTrendingNewsState> {
+class HomeTrendingNewsStateProvider : PreviewParameterProvider<HomeTrendingNewsState> {
     override val values: Sequence<HomeTrendingNewsState>
         get() = sequenceOf(
             HomeTrendingNewsState(isLoading = true),
@@ -18,7 +18,8 @@ class HomePreviewParameterProvider : PreviewParameterProvider<HomeTrendingNewsSt
                         publishedAt = "2023-09-15T1",
                         source = NewsSource(
                             id = "id",
-                            name = "BBC"
+                            name = "BBC",
+                            imageUrl = "https://www.google.com/s2/favicons?domain=github.com"
                         ),
                         title = "Title",
                         url = "https://www.google.com",
@@ -32,7 +33,8 @@ class HomePreviewParameterProvider : PreviewParameterProvider<HomeTrendingNewsSt
                         publishedAt = "2023-09-15T1",
                         source = NewsSource(
                             id = "id",
-                            name = "BBC"
+                            name = "BBC",
+                            imageUrl = "https://www.google.com/s2/favicons?domain=github.com"
                         ),
                         title = "Title",
                         url = "https://www.google.com",
