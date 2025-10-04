@@ -2,16 +2,17 @@ package com.thelazybattley.core.network.usecase.impl
 
 import com.thelazybattley.core.network.NewsRepository
 import com.thelazybattley.core.network.data.news.News
-import com.thelazybattley.core.network.usecase.FetchNewsByKeywordUseCase
+import com.thelazybattley.core.network.enums.NetworkPath
+import com.thelazybattley.core.network.usecase.FetchNewsUseCase
 import com.thelazybattley.core.util.usecase.ComputeTimePassedUseCase
 import javax.inject.Inject
 
-class FetchNewsByKeywordUseCaseImpl @Inject constructor(
+class FetchNewsUseCaseImpl @Inject constructor(
     private val repository: NewsRepository,
     private val computeTimePassedUseCase: ComputeTimePassedUseCase
-) : FetchNewsByKeywordUseCase {
-    override suspend operator fun invoke(keyword: String): Result<News> {
-        val result = repository.fetchNewsByKeyword(keyword = keyword)
+) : FetchNewsUseCase {
+    override suspend operator fun invoke(keyword: String, path: NetworkPath): Result<News> {
+        val result = repository.fetchNews(keyword = keyword, path = path)
             .getOrElse(onFailure = { exception ->
                 return Result.failure(exception = exception)
             }
