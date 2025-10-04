@@ -4,7 +4,7 @@ import com.thelazybattley.core.network.data.news.NewsArticle
 
 data class NewsArticleResponse(
     val author: String?,
-    val content: String,
+    val content: String?,
     val description: String?,
     val publishedAt: String,
     val source: NewsSourceResponse,
@@ -16,7 +16,7 @@ data class NewsArticleResponse(
 fun NewsArticleResponse.toDomain(): NewsArticle {
     return NewsArticle(
         author = author ?: "",
-        content = content,
+        content = content ?: "",
         description = description ?: "",
         publishedAt = publishedAt,
         source = source.toDomain(),

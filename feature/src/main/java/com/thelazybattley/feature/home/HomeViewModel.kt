@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            fetchNewsUseCase(keyword = null, path = NetworkPath.TOP_HEADLINES).fold(
+            fetchNewsUseCase(keyword = null, path = NetworkPath.TOP_HEADLINES, pageSize = 6).fold(
                 onSuccess = { result ->
                     _viewState.update { state ->
                         state.copy(
@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
                     }
                 },
                 onFailure = {
-
+                    it.printStackTrace()
                 }
             )
         }

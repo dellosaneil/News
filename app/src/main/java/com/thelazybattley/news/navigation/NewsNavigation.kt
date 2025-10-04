@@ -13,8 +13,10 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,9 +32,14 @@ fun NewsNavigation(modifier: Modifier = Modifier) {
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
     Scaffold(
         modifier = modifier,
+        containerColor = LocalNewsColors.current.white,
         bottomBar = {
             val colors = LocalNewsColors.current
-            NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
+            NavigationBar(
+                windowInsets = NavigationBarDefaults.windowInsets,
+                containerColor = LocalNewsColors.current.white,
+                modifier = Modifier.shadow(elevation = 8.dp)
+            ) {
                 Destination.entries.forEachIndexed { index, destination ->
                     val isSelected = selectedDestination == index
                     val tint = if (isSelected) colors.primary else colors.grayScale

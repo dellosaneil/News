@@ -5,17 +5,20 @@ import androidx.compose.ui.graphics.Color
 data class NewsColors(
     val grayScale: Color,
     val primary: Color,
-    val black: Color
+    val black: Color,
+    val white: Color
 )
 
 fun lightColors(
     grayScale: Color = MulledWine,
     primary: Color = AzureRadiance,
-    black: Color = Black
+    black: Color = Black,
+    white: Color = White,
 ): NewsColors {
     return NewsColors(
         grayScale = grayScale,
         primary = primary,
-        black = black
+        black = black,
+        white = white
     )
 }

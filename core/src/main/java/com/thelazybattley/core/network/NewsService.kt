@@ -9,8 +9,10 @@ interface NewsService {
 
     @GET("{path}")
     suspend fun fetchNews(
+        @Path("path") path: String,
         @Query("q") keyword: String?,
-        @Path("path") path: String
+        @Query("pageSize") pageSize: Int,
+        @Query("country") country: String = "US"
     ): NewsResponse
 
 }

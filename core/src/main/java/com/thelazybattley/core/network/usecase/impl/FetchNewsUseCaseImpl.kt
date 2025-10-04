@@ -11,11 +11,16 @@ class FetchNewsUseCaseImpl @Inject constructor(
     private val repository: NewsRepository,
     private val computeTimePassedUseCase: ComputeTimePassedUseCase
 ) : FetchNewsUseCase {
-    override suspend operator fun invoke(keyword: String?, path: NetworkPath): Result<News> {
-        val result = repository.fetchNews(keyword = keyword, path = path)
-            .getOrElse(onFailure = { exception ->
-                return Result.failure(exception = exception)
-            }
+    override suspend operator fun invoke(
+        keyword: String?,
+        path: NetworkPath,
+        pageSize: Int
+    ): Result<News> {
+        val result = repository.fetchNews(keyword = keyword, path = path, pageSize = pageSize)
+            .getOrElse(
+                onFailure = { exception ->
+                    return Result.failure(exception = exception)
+                }
             )
         return Result.success(
             value = result.copy(

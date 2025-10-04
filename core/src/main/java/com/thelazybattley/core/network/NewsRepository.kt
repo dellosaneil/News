@@ -5,6 +5,6 @@ import com.thelazybattley.core.network.enums.NetworkPath
 
 interface NewsRepository {
 
-    suspend fun fetchNews(keyword: String?, path: NetworkPath): Result<News>
+    suspend fun fetchNews(keyword: String?, path: NetworkPath, pageSize: Int): Result<News>
 
 }

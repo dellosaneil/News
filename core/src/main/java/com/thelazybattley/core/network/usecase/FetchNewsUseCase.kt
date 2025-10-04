@@ -5,5 +5,5 @@ import com.thelazybattley.core.network.enums.NetworkPath
 
 interface FetchNewsUseCase {
 
-    suspend operator fun invoke(keyword: String?, path: NetworkPath): Result<News>
+    suspend operator fun invoke(keyword: String?, path: NetworkPath, pageSize: Int): Result<News>
 }

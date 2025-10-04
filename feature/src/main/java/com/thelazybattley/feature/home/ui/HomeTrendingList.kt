@@ -7,15 +7,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,7 +44,7 @@ fun HomeTrendingList(
     val colors = LocalNewsColors.current
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -82,14 +87,29 @@ private fun TrendingNewsCard(
     val typography = LocalNewsTypography.current
     val color = LocalNewsColors.current
     Card(
-        modifier = modifier,
-        shape = RoundedCornerShape(size = 8.dp)
+        modifier = modifier.width(275.dp),
+        shape = RoundedCornerShape(size = 8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = color.white
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 4.dp
+        )
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(space = 8.dp)) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(space = 8.dp),
+            modifier = Modifier.padding(all = 8.dp)
+        ) {
             GlideImage(
                 model = article.urlToImage,
                 contentDescription = null,
-                modifier = Modifier.size(width = 250.dp, 150.dp)
+                modifier = Modifier
+                    .clip(
+                        shape = RoundedCornerShape(size = 8.dp)
+                    )
+                    .height(150.dp)
+                    .fillMaxWidth()
+
             )
             Text(
                 text = article.author,
@@ -117,7 +137,6 @@ private fun TrendingNewsCard(
                     style = typography.xSmallText,
                     color = color.grayScale
                 )
-                Spacer(modifier = Modifier)
                 GlideImage(
                     model = R.drawable.ic_time,
                     modifier = Modifier.size(size = 14.dp),
@@ -126,7 +145,8 @@ private fun TrendingNewsCard(
                 Text(
                     text = article.timePassed,
                     style = typography.xSmallText,
-                    color = color.grayScale
+                    color = color.grayScale,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }

@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.NewsTheme
 import com.thelazybattley.feature.home.HomeViewModel
 import com.thelazybattley.feature.home.HomeViewState
@@ -31,7 +32,8 @@ fun HomeScreen(modifier: Modifier = Modifier, viewState: HomeViewState) {
             .padding(horizontal = 24.dp),
         topBar = {
             HomeScreenTopBar()
-        }
+        },
+        containerColor = LocalNewsColors.current.white,
     ) { contentPadding ->
         LazyColumn(
             contentPadding = contentPadding,
