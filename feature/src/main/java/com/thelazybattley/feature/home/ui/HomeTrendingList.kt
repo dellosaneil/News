@@ -104,26 +104,29 @@ private fun TrendingNewsCard(
             verticalArrangement = Arrangement.spacedBy(space = 8.dp),
             modifier = Modifier.padding(all = 8.dp)
         ) {
+            val imageModifier = Modifier
+                .clip(
+                    shape = RoundedCornerShape(size = 8.dp)
+                )
+                .height(150.dp)
+                .fillMaxWidth()
             GlideImage(
                 imageModel = { article.urlToImage },
-                modifier = Modifier
-                    .clip(
-                        shape = RoundedCornerShape(size = 8.dp)
-                    )
-                    .height(150.dp)
-                    .fillMaxWidth(),
+                modifier = imageModifier,
                 loading = {
                     Spacer(
                         modifier = Modifier
                             .shimmerEffect()
-                            .clip(
-                                shape = RoundedCornerShape(size = 8.dp)
-                            )
-                            .height(150.dp)
-                            .fillMaxWidth()
+                            .then(imageModifier)
+                    )
+                },
+                failure = {
+                    Spacer(
+                        modifier = Modifier
+                            .shimmerEffect()
+                            .then(imageModifier)
                     )
                 }
-
             )
             Text(
                 text = article.author,
