@@ -72,9 +72,7 @@ class HomeViewModel @Inject constructor(
                         state.copy(
                             trendingArticles = HomeTrendingNewsState(
                                 articles = result.articles.map { article ->
-                                    val imageUrl =
-                                        state.newsSources.sources.find { it.id == article.source.id }?.imageUrl
-                                            ?: ""
+                                    val imageUrl = state.newsSources.sources.find { it.id == article.source.id }?.imageUrl ?: ""
                                     article.copy(
                                         source = article.source.copy(
                                             imageUrl = imageUrl

@@ -17,6 +17,7 @@ navigationCompose = "2.9.5"
 composeMaterial = "1.9.2"
 hiltNavigationCompose = "1.3.0"
 landscapistGlide = "2.6.1"
+roomVersion = "2.8.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,15 +35,18 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-retrofit2 = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2"}
-gson-converter = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gsonConverter" }
+retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2" }
+gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gsonConverter" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
-navigation-compose = {group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose"}
-compose-material = {group = "androidx.compose.material", name = "material", version.ref = "composeMaterial"}
-google-fonts = {group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "composeMaterial"}
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+compose-material = { group = "androidx.compose.material", name = "material", version.ref = "composeMaterial" }
+google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "composeMaterial" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
-landscapist-glide = {group = "com.github.skydoves", name = "landscapist-glide", version.ref = "landscapistGlide"}
+landscapist-glide = { group = "com.github.skydoves", name = "landscapist-glide", version.ref = "landscapistGlide" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
+room-compile = { group = "androidx.room ", name = "room-compiler", version.ref = "roomVersion" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -54,3 +58,4 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [bundles]
 network = ["gson-converter", "retrofit2", "okhttp", "okhttp-logging"]
+room = ["room-runtime", "room-ktx", "room-compile"]

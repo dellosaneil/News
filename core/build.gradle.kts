@@ -61,4 +61,5 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     implementation(libs.compose.material)
     implementation(libs.google.fonts)
+    implementation(libs.bundles.room)
 }
