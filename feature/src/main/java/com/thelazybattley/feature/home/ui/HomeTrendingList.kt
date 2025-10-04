@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.glide.GlideImage
 import com.thelazybattley.core.network.data.news.NewsArticle
@@ -33,6 +34,7 @@ import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.ui.theme.NewsTheme
 import com.thelazybattley.feature.R
 import com.thelazybattley.feature.home.HomeTrendingNewsState
+import com.thelazybattley.feature.home.provider.HomePreviewParameterProvider
 
 @Composable
 fun HomeTrendingList(
@@ -174,29 +176,13 @@ private fun PreviewTrendingNewsCard() {
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewHomeTrendingList() {
+private fun PreviewHomeTrendingList(
+    @PreviewParameter(HomePreviewParameterProvider::class) state: HomeTrendingNewsState
+) {
     NewsTheme {
         HomeTrendingList(
             modifier = Modifier.fillMaxWidth(),
-            articles = HomeTrendingNewsState(
-                articles = listOf(
-                    NewsArticle(
-                        author = "Author",
-                        content = "Content",
-                        description = "Description",
-                        publishedAt = "2023-09-15T1",
-                        source = NewsSource(
-                            id = "id",
-                            name = "BBC"
-                        ),
-                        title = "Title",
-                        url = "https://www.google.com",
-                        urlToImage = "https://techcrunch.com/wp-content/uploads/2025/10/google-jules.jpg?resize=1200,800",
-                        timePassed = "90 days ago"
-                    )
-                ),
-                isLoading = false
-            )
+            articles = state,
         )
     }
 }
