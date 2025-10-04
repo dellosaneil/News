@@ -1,6 +1,8 @@
 package com.thelazybattley.core.di.usecase
 
+import com.thelazybattley.core.network.usecase.FetchNewsSourcesUseCase
 import com.thelazybattley.core.network.usecase.FetchNewsUseCase
+import com.thelazybattley.core.network.usecase.impl.FetchNewsSourcesUseCaseImpl
 import com.thelazybattley.core.network.usecase.impl.FetchNewsUseCaseImpl
 import com.thelazybattley.core.util.usecase.ComputeTimePassedUseCase
 import com.thelazybattley.core.util.usecase.impl.ComputeTimePassedUseCaseImpl
@@ -21,5 +23,9 @@ abstract class UseCaseModule {
     @ViewModelScoped
     @Binds
     abstract fun bindComputeTimePassedUseCase(impl: ComputeTimePassedUseCaseImpl): ComputeTimePassedUseCase
+
+    @ViewModelScoped
+    @Binds
+    abstract fun bindFetchNewsSourcesUseCase(impl: FetchNewsSourcesUseCaseImpl): FetchNewsSourcesUseCase
 
 }

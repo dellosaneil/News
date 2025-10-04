@@ -1,6 +1,7 @@
 package com.thelazybattley.core.network
 
 import com.thelazybattley.core.network.response.news.NewsResponse
+import com.thelazybattley.core.network.response.sources.NewsSourcesDetailsResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -14,5 +15,8 @@ interface NewsService {
         @Query("pageSize") pageSize: Int,
         @Query("country") country: String = "US"
     ): NewsResponse
+
+    @GET("top-headlines/sources")
+    suspend fun fetchNewsSources(): NewsSourcesDetailsResponse
 
 }

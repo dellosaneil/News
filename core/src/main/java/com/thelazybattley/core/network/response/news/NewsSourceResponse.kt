@@ -7,6 +7,6 @@ data class NewsSourceResponse(
     val name: String
 )
 
-fun NewsSourceResponse.toDomain(): NewsSource  {
-    return NewsSource(id = id ?: "", name = name)
+fun NewsSourceResponse.toDomain(): NewsSource {
+    return NewsSource(id = id ?: "", name = name, imageUrl = "")
 }
