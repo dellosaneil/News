@@ -22,18 +22,35 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            fetchNewsUseCase(keyword = null, path = NetworkPath.TOP_HEADLINES, pageSize = 6).fold(
-                onSuccess = { result ->
-                    _viewState.update { state ->
-                        state.copy(
-                            trendingNews = result
-                        )
-                    }
-                },
-                onFailure = {
-                    it.printStackTrace()
-                }
-            )
+            fetchTrendingNews()
         }
     }
+
+    private suspend fun fetchTrendingNews() {
+        fetchNewsUseCase(keyword = null, path = NetworkPath.TOP_HEADLINES, pageSize = 6).fold(
+            onSuccess = { result ->
+                _viewState.update { state ->
+                    state.copy(
+                        trendingArticles = HomeTrendingNewsState(
+                            articles = result.articles,
+                            isLoading = false,
+                            isError = false
+                        )
+                    )
+                }
+            },
+            onFailure = {
+                _viewState.update { state ->
+                    state.copy(
+                        trendingArticles = HomeTrendingNewsState(
+                            articles = emptyList(),
+                            isLoading = false,
+                            isError = false
+                        )
+                    )
+                }
+            }
+        )
+    }
+
 }

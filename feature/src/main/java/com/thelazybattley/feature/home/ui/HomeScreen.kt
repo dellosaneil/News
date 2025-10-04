@@ -45,7 +45,7 @@ fun HomeScreen(modifier: Modifier = Modifier, viewState: HomeViewState) {
             item {
                 HomeTrendingList(
                     modifier = Modifier,
-                    news = viewState.trendingNews
+                    articles = viewState.trendingArticles
                 )
             }
         }

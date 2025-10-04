@@ -26,18 +26,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.glide.GlideImage
-import com.thelazybattley.core.network.data.news.News
 import com.thelazybattley.core.network.data.news.NewsArticle
 import com.thelazybattley.core.network.data.news.NewsSource
 import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.ui.theme.NewsTheme
 import com.thelazybattley.feature.R
+import com.thelazybattley.feature.home.HomeTrendingNewsState
 
 @Composable
 fun HomeTrendingList(
     modifier: Modifier = Modifier,
-    news: News?
+    articles: HomeTrendingNewsState
 ) {
     val typography = LocalNewsTypography.current
     val colors = LocalNewsColors.current
@@ -65,7 +65,7 @@ fun HomeTrendingList(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(space = 16.dp)
         ) {
-            items(items = news?.articles ?: emptyList()) { article ->
+            items(items = articles.articles) { article ->
                 TrendingNewsCard(
                     article = article
                 )
@@ -176,10 +176,27 @@ private fun PreviewTrendingNewsCard() {
 @Composable
 private fun PreviewHomeTrendingList() {
     NewsTheme {
-
         HomeTrendingList(
             modifier = Modifier.fillMaxWidth(),
-            news = null
+            articles = HomeTrendingNewsState(
+                articles = listOf(
+                    NewsArticle(
+                        author = "Author",
+                        content = "Content",
+                        description = "Description",
+                        publishedAt = "2023-09-15T1",
+                        source = NewsSource(
+                            id = "id",
+                            name = "BBC"
+                        ),
+                        title = "Title",
+                        url = "https://www.google.com",
+                        urlToImage = "https://techcrunch.com/wp-content/uploads/2025/10/google-jules.jpg?resize=1200,800",
+                        timePassed = "90 days ago"
+                    )
+                ),
+                isLoading = false
+            )
         )
     }
 }
