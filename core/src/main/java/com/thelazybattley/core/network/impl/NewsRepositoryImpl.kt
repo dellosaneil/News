@@ -10,7 +10,7 @@ import javax.inject.Inject
 class NewsRepositoryImpl @Inject constructor(
     private val newsService: NewsService
 ) : NewsRepository {
-    override suspend fun fetchNews(keyword: String, path: NetworkPath): Result<News> {
+    override suspend fun fetchNews(keyword: String?, path: NetworkPath): Result<News> {
         return try {
             Result.success(newsService.fetchNews(keyword = keyword, path = path.path).toDomain())
         } catch (exception: Exception) {
