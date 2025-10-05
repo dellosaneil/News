@@ -2,6 +2,9 @@ package com.thelazybattley.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.thelazybattley.core.db.usecase.GetNewsSourceDetailsUseCase
+import com.thelazybattley.core.db.usecase.InsertNewsSourceDetailsUseCase
+import com.thelazybattley.core.network.data.sources.NewsSourceDetails
 import com.thelazybattley.core.network.enums.NetworkPath
 import com.thelazybattley.core.network.usecase.FetchNewsSourcesUseCase
 import com.thelazybattley.core.network.usecase.FetchNewsUseCase
@@ -18,7 +21,9 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val fetchNewsUseCase: FetchNewsUseCase,
-    private val fetchNewsSourcesUseCase: FetchNewsSourcesUseCase
+    private val fetchNewsSourcesUseCase: FetchNewsSourcesUseCase,
+    private val insertNewsSourceDetailsUseCase: InsertNewsSourceDetailsUseCase,
+    private val getNewsSourceDetailsUseCase: GetNewsSourceDetailsUseCase
 ) : ViewModel() {
 
     private val _viewState = MutableStateFlow(value = HomeViewState())
@@ -28,40 +33,55 @@ class HomeViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val sources = async {
-                fetchNewsSource()
+                val newsSourceDetails = getNewsSourceDetails()
+                if (newsSourceDetails.isEmpty()) {
+                    newsSourceDetails.toMutableList()
+                        .addAll(fetchNewsSourceDetails())
+                    insertNewsSourceDetailsUseCase(newsSourceDetails)
+                }
+                updateNewsSourceState(newsSourceDetails = newsSourceDetails)
             }
+            sources.await()
             val trendingNews = async {
                 fetchTrendingNews()
             }
-            sources.await()
             trendingNews.await()
         }
     }
 
-    private suspend fun fetchNewsSource() {
+    private suspend fun fetchNewsSourceDetails(): List<NewsSourceDetails> {
         fetchNewsSourcesUseCase().fold(
             onSuccess = { result ->
-                _viewState.update { state ->
-                    state.copy(
-                        newsSources = state.newsSources.copy(
-                            sources = result,
-                            isLoading = false,
-                            isError = false
-                        )
-                    )
-                }
+
+                return result
             },
             onFailure = {
                 _viewState.update { state ->
                     state.copy(
                         newsSources = state.newsSources.copy(
-                            isLoading = false,
                             isError = true
                         )
                     )
                 }
+                return emptyList()
             }
         )
+
+    }
+
+    private suspend fun getNewsSourceDetails(): List<NewsSourceDetails> {
+        return getNewsSourceDetailsUseCase().getOrNull() ?: emptyList()
+    }
+
+    private fun updateNewsSourceState(newsSourceDetails: List<NewsSourceDetails>) {
+        _viewState.update { state ->
+            state.copy(
+                newsSources = state.newsSources.copy(
+                    sources = newsSourceDetails,
+                    isLoading = false
+                )
+            )
+        }
     }
 
     private suspend fun fetchTrendingNews() {
@@ -72,7 +92,9 @@ class HomeViewModel @Inject constructor(
                         state.copy(
                             trendingArticles = HomeTrendingNewsState(
                                 articles = result.articles.map { article ->
-                                    val imageUrl = state.newsSources.sources.find { it.id == article.source.id }?.imageUrl ?: ""
+                                    val imageUrl =
+                                        state.newsSources.sources.find { it.id == article.source.id }?.imageUrl
+                                            ?: ""
                                     article.copy(
                                         source = article.source.copy(
                                             imageUrl = imageUrl
