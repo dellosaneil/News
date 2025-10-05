@@ -67,4 +67,5 @@ dependencies {
     implementation(libs.google.fonts)
     implementation(libs.bundles.room)
     ksp(libs.room.compile)
+    implementation(libs.timber)
 }

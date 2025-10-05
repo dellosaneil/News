@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.landscapist.glide)
+    implementation(libs.timber)
 
     implementation(project(":core"))
 }
