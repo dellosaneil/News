@@ -1,5 +1,6 @@
 package com.thelazybattley.feature.home.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.feature.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,6 +23,7 @@ import com.thelazybattley.feature.R
 fun HomeScreenTopBar(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
+            .background(LocalNewsColors.current.white)
             .fillMaxWidth()
             .padding(top = 8.dp),
         verticalAlignment = Alignment.CenterVertically,

@@ -48,7 +48,7 @@ landscapist-glide = { group = "com.github.skydoves", name = "landscapist-glide",
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
 room-compile = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
-timber = {group = "com.jakewharton.timber", name = "timber", version.ref = "timber"}
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

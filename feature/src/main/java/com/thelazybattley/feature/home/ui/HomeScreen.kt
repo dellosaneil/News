@@ -1,6 +1,7 @@
 package com.thelazybattley.feature.home.ui
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
@@ -28,24 +29,32 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier, viewState: HomeViewState) {
     Scaffold(
-        modifier = modifier
-            .padding(horizontal = 24.dp),
+        modifier = modifier,
         topBar = {
-            HomeScreenTopBar()
+            HomeScreenTopBar(
+                modifier = Modifier.fillMaxWidth()
+            )
         },
         containerColor = LocalNewsColors.current.white,
     ) { contentPadding ->
         LazyColumn(
             contentPadding = contentPadding,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(space = 16.dp)
         ) {
             item {
-                CommonSearchBar()
+                CommonSearchBar(
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
             }
             item {
                 HomeTrendingList(
                     modifier = Modifier,
                     articles = viewState.trendingArticles
+                )
+            }
+            stickyHeader {
+                HomeStickyHeader(
+                    modifier = Modifier
                 )
             }
         }
