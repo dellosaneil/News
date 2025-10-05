@@ -5,6 +5,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,7 +47,13 @@ fun NewsNavigation(modifier: Modifier = Modifier) {
                     NavigationBarItem(
                         selected = isSelected,
                         onClick = {
-                            navController.navigate(route = destination.route)
+                            navController.navigate(route = destination.route) {
+                                launchSingleTop = true
+                                restoreState = true
+                                popUpTo(navController.graph.startDestinationId) {
+                                    saveState = true
+                                }
+                            }
                             selectedDestination = index
                         },
                         icon = {
@@ -62,7 +69,10 @@ fun NewsNavigation(modifier: Modifier = Modifier) {
                                 color = tint,
                                 style = LocalNewsTypography.current.smallText
                             )
-                        }
+                        },
+                        colors = NavigationBarItemDefaults.colors(
+                            indicatorColor = colors.transparent
+                        )
                     )
                 }
             }

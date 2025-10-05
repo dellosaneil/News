@@ -6,7 +6,8 @@ data class NewsColors(
     val grayScale: Color,
     val primary: Color,
     val black: Color,
-    val white: Color
+    val white: Color,
+    val transparent: Color
 )
 
 fun lightColors(
@@ -14,11 +15,13 @@ fun lightColors(
     primary: Color = AzureRadiance,
     black: Color = Black,
     white: Color = White,
+    transparent: Color = Transparent
 ): NewsColors {
     return NewsColors(
         grayScale = grayScale,
         primary = primary,
         black = black,
-        white = white
+        white = white,
+        transparent = transparent
     )
 }
