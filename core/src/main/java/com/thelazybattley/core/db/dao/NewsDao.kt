@@ -13,7 +13,7 @@ interface NewsDao {
     suspend fun insertNewsSources(sources: List<NewsSourceDetailsEntity>)
 
     @Query("SELECT * FROM NewsSourceDetailsEntity")
-    suspend fun getNewsSources(): List<NewsSourceDetailsEntity>
+    suspend fun getNewsSourcesDetails(): List<NewsSourceDetailsEntity>
 
 
 }

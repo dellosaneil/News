@@ -1,6 +1,6 @@
 package com.thelazybattley.core.network.usecase.impl
 
-import com.thelazybattley.core.network.NewsRepository
+import com.thelazybattley.core.repository.NewsRepository
 import com.thelazybattley.core.network.data.news.News
 import com.thelazybattley.core.network.enums.NetworkPath
 import com.thelazybattley.core.network.usecase.FetchNewsUseCase

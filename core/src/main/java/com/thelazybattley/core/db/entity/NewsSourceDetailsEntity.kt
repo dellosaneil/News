@@ -2,6 +2,7 @@ package com.thelazybattley.core.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.thelazybattley.core.network.data.sources.NewsSourceDetails
 
 @Entity(tableName = "NewsSourceDetailsEntity")
 data class NewsSourceDetailsEntity(
@@ -14,3 +15,16 @@ data class NewsSourceDetailsEntity(
     val url: String,
     val imageUrl: String
 )
+
+fun NewsSourceDetailsEntity.toDomain(): NewsSourceDetails {
+    return NewsSourceDetails(
+        category = category,
+        country = category,
+        description = description,
+        id = id,
+        language = language,
+        name = name,
+        url = url,
+        imageUrl = imageUrl
+    )
+}

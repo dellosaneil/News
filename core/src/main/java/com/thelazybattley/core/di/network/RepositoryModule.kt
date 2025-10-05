@@ -1,7 +1,7 @@
 package com.thelazybattley.core.di.network
 
-import com.thelazybattley.core.network.NewsRepository
-import com.thelazybattley.core.network.impl.NewsRepositoryImpl
+import com.thelazybattley.core.repository.NewsRepository
+import com.thelazybattley.core.repository.impl.NewsRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

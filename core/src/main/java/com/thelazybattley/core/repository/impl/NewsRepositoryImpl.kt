@@ -1,16 +1,19 @@
-package com.thelazybattley.core.network.impl
+package com.thelazybattley.core.repository.impl
 
-import com.thelazybattley.core.network.NewsRepository
+import com.thelazybattley.core.db.dao.NewsDao
+import com.thelazybattley.core.db.entity.toDomain
 import com.thelazybattley.core.network.NewsService
 import com.thelazybattley.core.network.data.news.News
 import com.thelazybattley.core.network.data.sources.NewsSourceDetails
 import com.thelazybattley.core.network.enums.NetworkPath
 import com.thelazybattley.core.network.response.news.toDomain
 import com.thelazybattley.core.network.response.sources.toDomain
+import com.thelazybattley.core.repository.NewsRepository
 import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
-    private val newsService: NewsService
+    private val newsService: NewsService,
+    private val newsDao: NewsDao
 ) : NewsRepository {
     override suspend fun fetchNews(
         keyword: String?,
@@ -39,6 +42,20 @@ class NewsRepositoryImpl @Inject constructor(
             )
         } catch (exception: Exception) {
             Result.failure(exception)
+        }
+    }
+
+    override suspend fun getNewsSourceDetails(): Result<List<NewsSourceDetails>> {
+        return try {
+            Result.success(
+                value = newsDao
+                    .getNewsSourcesDetails()
+                    .map { sources ->
+                        sources.toDomain()
+                    }
+            )
+        } catch (exception: Exception) {
+            Result.failure(exception = exception)
         }
     }
 }
