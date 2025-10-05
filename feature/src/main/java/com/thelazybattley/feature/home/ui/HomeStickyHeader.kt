@@ -25,9 +25,13 @@ import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.ui.theme.NewsTheme
 import com.thelazybattley.core.util.LatestNewsCategories
 import com.thelazybattley.feature.R
+import com.thelazybattley.feature.home.HomeScreenCallbacks
 
 @Composable
-fun HomeStickyHeader(modifier: Modifier = Modifier) {
+fun HomeStickyHeader(
+    modifier: Modifier = Modifier,
+    callbacks: HomeScreenCallbacks
+) {
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -50,13 +54,14 @@ fun HomeStickyHeader(modifier: Modifier = Modifier) {
             )
         }
         LatestNewsTab(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            callbacks = callbacks
         )
     }
 }
 
 @Composable
-private fun LatestNewsTab(modifier: Modifier = Modifier) {
+private fun LatestNewsTab(modifier: Modifier = Modifier, callbacks: HomeScreenCallbacks) {
     val colors = LocalNewsColors.current
     val startDestination = LatestNewsCategories.BUSINESS
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
@@ -84,6 +89,7 @@ private fun LatestNewsTab(modifier: Modifier = Modifier) {
             Tab(
                 selected = isSelected,
                 onClick = {
+                    callbacks.onCategorySelected(category = destination)
                     selectedDestination = index
                 },
                 text = {
@@ -102,6 +108,13 @@ private fun LatestNewsTab(modifier: Modifier = Modifier) {
 @Composable
 private fun PreviewHomeStickyHeader() {
     NewsTheme {
-        HomeStickyHeader()
+        HomeStickyHeader(
+            callbacks = object : HomeScreenCallbacks {
+                override fun onCategorySelected(category: LatestNewsCategories) {
+                    TODO("Not yet implemented")
+                }
+            }
+
+        )
     }
 }
