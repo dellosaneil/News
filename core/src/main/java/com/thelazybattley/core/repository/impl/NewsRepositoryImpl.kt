@@ -10,6 +10,7 @@ import com.thelazybattley.core.network.enums.NetworkPath
 import com.thelazybattley.core.network.response.news.toDomain
 import com.thelazybattley.core.network.response.sources.toDomain
 import com.thelazybattley.core.repository.NewsRepository
+import com.thelazybattley.core.util.LatestNewsCategories
 import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
@@ -19,14 +20,16 @@ class NewsRepositoryImpl @Inject constructor(
     override suspend fun fetchNews(
         keyword: String?,
         path: NetworkPath,
-        pageSize: Int
+        pageSize: Int,
+        category: LatestNewsCategories?
     ): Result<News> {
         return try {
             Result.success(
                 value = newsService.fetchNews(
                     keyword = keyword,
                     path = path.path,
-                    pageSize = pageSize
+                    pageSize = pageSize,
+                    category = category?.query,
                 ).toDomain()
             )
         } catch (exception: Exception) {

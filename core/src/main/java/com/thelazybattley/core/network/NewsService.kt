@@ -13,7 +13,8 @@ interface NewsService {
         @Path("path") path: String,
         @Query("q") keyword: String?,
         @Query("pageSize") pageSize: Int,
-        @Query("country") country: String = "US"
+        @Query("country") country: String = "US",
+        @Query("category") category: String?
     ): NewsResponse
 
     @GET("top-headlines/sources")

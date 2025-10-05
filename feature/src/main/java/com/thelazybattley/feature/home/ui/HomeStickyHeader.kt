@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.ui.theme.NewsTheme
-import com.thelazybattley.core.util.LatestNewsTabDestination
+import com.thelazybattley.core.util.LatestNewsCategories
 import com.thelazybattley.feature.R
 
 @Composable
@@ -58,7 +58,7 @@ fun HomeStickyHeader(modifier: Modifier = Modifier) {
 @Composable
 private fun LatestNewsTab(modifier: Modifier = Modifier) {
     val colors = LocalNewsColors.current
-    val startDestination = LatestNewsTabDestination.BUSINESS
+    val startDestination = LatestNewsCategories.BUSINESS
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
     PrimaryScrollableTabRow(
         selectedTabIndex = selectedDestination,
@@ -77,7 +77,7 @@ private fun LatestNewsTab(modifier: Modifier = Modifier) {
             )
         }
     ) {
-        LatestNewsTabDestination.entries.forEachIndexed { index, destination ->
+        LatestNewsCategories.entries.forEachIndexed { index, destination ->
             val isSelected = selectedDestination == index
             val textColor =
                 if (isSelected) colors.black else colors.grayScale
