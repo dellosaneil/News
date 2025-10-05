@@ -1,7 +1,9 @@
 package com.thelazybattley.core.di.usecase
 
 import com.thelazybattley.core.db.usecase.GetNewsSourceDetailsUseCase
+import com.thelazybattley.core.db.usecase.InsertNewsSourceDetailsUseCase
 import com.thelazybattley.core.db.usecase.impl.GetNewsSourceDetailsUseCaseImpl
+import com.thelazybattley.core.db.usecase.impl.InsertNewsSourceDetailsUseCaseImpl
 import com.thelazybattley.core.network.usecase.FetchNewsSourcesUseCase
 import com.thelazybattley.core.network.usecase.FetchNewsUseCase
 import com.thelazybattley.core.network.usecase.impl.FetchNewsSourcesUseCaseImpl
@@ -33,5 +35,9 @@ abstract class UseCaseModule {
     @ViewModelScoped
     @Binds
     abstract fun bindGetNewsSourceDetailsUseCase(impl: GetNewsSourceDetailsUseCaseImpl): GetNewsSourceDetailsUseCase
+
+    @ViewModelScoped
+    @Binds
+    abstract fun bindInsertNewsSourceDetailsUseCase(impl: InsertNewsSourceDetailsUseCaseImpl): InsertNewsSourceDetailsUseCase
 
 }

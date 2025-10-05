@@ -8,8 +8,10 @@ interface NewsRepository {
 
     suspend fun fetchNews(keyword: String?, path: NetworkPath, pageSize: Int): Result<News>
 
-    suspend fun fetchNewsSources() : Result<List<NewsSourceDetails>>
+    suspend fun fetchNewsSources(): Result<List<NewsSourceDetails>>
 
     suspend fun getNewsSourceDetails(): Result<List<NewsSourceDetails>>
+
+    suspend fun insertNewsSources(sources: List<NewsSourceDetails>)
 
 }

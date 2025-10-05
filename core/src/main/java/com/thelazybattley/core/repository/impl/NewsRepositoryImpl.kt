@@ -5,6 +5,7 @@ import com.thelazybattley.core.db.entity.toDomain
 import com.thelazybattley.core.network.NewsService
 import com.thelazybattley.core.network.data.news.News
 import com.thelazybattley.core.network.data.sources.NewsSourceDetails
+import com.thelazybattley.core.network.data.sources.toEntity
 import com.thelazybattley.core.network.enums.NetworkPath
 import com.thelazybattley.core.network.response.news.toDomain
 import com.thelazybattley.core.network.response.sources.toDomain
@@ -57,5 +58,14 @@ class NewsRepositoryImpl @Inject constructor(
         } catch (exception: Exception) {
             Result.failure(exception = exception)
         }
+    }
+
+    override suspend fun insertNewsSources(sources: List<NewsSourceDetails>) {
+        newsDao
+            .insertNewsSources(
+                sources = sources.map { sources ->
+                    sources.toEntity()
+                }
+            )
     }
 }
