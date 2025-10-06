@@ -45,7 +45,7 @@ fun HomeScreen(
         containerColor = LocalNewsColors.current.white,
     ) { contentPadding ->
         LazyColumn(
-            contentPadding = contentPadding,
+            modifier = Modifier.padding(contentPadding),
             verticalArrangement = Arrangement.spacedBy(space = 16.dp)
         ) {
             item {
@@ -65,7 +65,9 @@ fun HomeScreen(
                     callbacks = callbacks
                 )
             }
-            items(items = viewState.highlightedArticles) { article ->
+            items(
+                items = viewState.highlightedArticles
+            ) { article ->
                 NewsDetailsPreview(
                     article = article,
                     modifier = Modifier
