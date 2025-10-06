@@ -48,7 +48,7 @@ class HomeViewModel @Inject constructor(
                 fetchNews(category = null)
             }
             val latestNews = async {
-                fetchNews(category = getViewState().value.categorySelected)
+                fetchNews(category = LatestNewsCategories.BUSINESS)
             }
             latestNews.await()
             trendingNews.await()
@@ -74,39 +74,29 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun updateArticleList(articles: List<NewsArticle>, category: LatestNewsCategories?) {
-        _viewState.update { state ->
-            val homeArticlesState = HomeArticlesState(
-                articles = articles.map { article ->
-                    val imageUrl =
-                        state.newsSources.sources.find { it.id == article.source.id }?.imageUrl
-                            ?: ""
-                    article.copy(
-                        source = article.source.copy(
-                            imageUrl = imageUrl
-                        )
-                    )
-                },
-                isLoading = false,
-                isError = false
-            )
-            when (category) {
-                LatestNewsCategories.BUSINESS -> state.copy(businessArticles = homeArticlesState)
-                LatestNewsCategories.ENTERTAINMENT -> state.copy(entertainmentArticles = homeArticlesState)
-                LatestNewsCategories.GENERAL -> state.copy(generalArticles = homeArticlesState)
-                LatestNewsCategories.HEALTH -> state.copy(healthArticles = homeArticlesState)
-                LatestNewsCategories.SCIENCE -> state.copy(scienceArticles = homeArticlesState)
-                LatestNewsCategories.SPORTS -> state.copy(sportsArticles = homeArticlesState)
-                LatestNewsCategories.TECHNOLOGY -> state.copy(technologyArticles = homeArticlesState)
-                null -> state.copy(trendingArticles = homeArticlesState)
-            }
-        }
-        if(category != null) {
+        if (category != null) {
             _viewState.update { state ->
                 state.copy(
                     highlightedArticles = articles
                 )
             }
         }
+        val homeArticlesState = HomeArticlesState(
+            articles = articles.map { article ->
+                val imageUrl =
+                    _viewState.value.newsSources.sources.find { it.id == article.source.id }?.imageUrl
+                        ?: ""
+                article.copy(
+                    source = article.source.copy(
+                        imageUrl = imageUrl
+                    )
+                )
+            },
+            isLoading = false,
+            isError = false
+        )
+        updateArticleByCategory(homeArticlesState = homeArticlesState, category = category)
+
     }
 
     private suspend fun getNewsSourceDetails(): List<NewsSourceDetails> {
@@ -135,35 +125,57 @@ class HomeViewModel @Inject constructor(
                 updateArticleList(articles = result.articles, category = category)
             },
             onFailure = {
-                _viewState.update { state ->
-                    val homeArticlesState = HomeArticlesState(
-                        articles = emptyList(),
-                        isLoading = false,
-                        isError = false
-                    )
-                    when (category) {
-                        LatestNewsCategories.BUSINESS -> state.copy(businessArticles = homeArticlesState)
-                        LatestNewsCategories.ENTERTAINMENT -> state.copy(entertainmentArticles = homeArticlesState)
-                        LatestNewsCategories.GENERAL -> state.copy(generalArticles = homeArticlesState)
-                        LatestNewsCategories.HEALTH -> state.copy(healthArticles = homeArticlesState)
-                        LatestNewsCategories.SCIENCE -> state.copy(scienceArticles = homeArticlesState)
-                        LatestNewsCategories.SPORTS -> state.copy(sportsArticles = homeArticlesState)
-                        LatestNewsCategories.TECHNOLOGY -> state.copy(technologyArticles = homeArticlesState)
-                        null -> state.copy(trendingArticles = homeArticlesState)
-                    }
-                }
+                val homeArticlesState = HomeArticlesState(
+                    articles = emptyList(),
+                    isLoading = false,
+                    isError = false
+                )
+                updateArticleByCategory(homeArticlesState = homeArticlesState, category = category)
             }
         )
     }
 
+    private fun updateArticleByCategory(
+        category: LatestNewsCategories?,
+        homeArticlesState: HomeArticlesState
+    ) {
+        _viewState.update { state ->
+            when (category) {
+                LatestNewsCategories.BUSINESS -> state.copy(businessArticles = homeArticlesState)
+                LatestNewsCategories.ENTERTAINMENT -> state.copy(entertainmentArticles = homeArticlesState)
+                LatestNewsCategories.GENERAL -> state.copy(generalArticles = homeArticlesState)
+                LatestNewsCategories.HEALTH -> state.copy(healthArticles = homeArticlesState)
+                LatestNewsCategories.SCIENCE -> state.copy(scienceArticles = homeArticlesState)
+                LatestNewsCategories.SPORTS -> state.copy(sportsArticles = homeArticlesState)
+                LatestNewsCategories.TECHNOLOGY -> state.copy(technologyArticles = homeArticlesState)
+                null -> state.copy(trendingArticles = homeArticlesState)
+            }
+        }
+    }
+
     override fun onCategorySelected(category: LatestNewsCategories) {
+        val articles = articlesForCategory(category = category)
         _viewState.update { state ->
             state.copy(
-                categorySelected = category
+                highlightedArticles = articles
             )
         }
+        if (articles.isNotEmpty()) return
+
         viewModelScope.launch(context = Dispatchers.IO) {
             fetchNews(category = category)
+        }
+    }
+
+    private fun articlesForCategory(category: LatestNewsCategories): List<NewsArticle> {
+        return when (category) {
+            LatestNewsCategories.BUSINESS -> _viewState.value.businessArticles.articles
+            LatestNewsCategories.ENTERTAINMENT -> _viewState.value.entertainmentArticles.articles
+            LatestNewsCategories.GENERAL -> _viewState.value.generalArticles.articles
+            LatestNewsCategories.HEALTH -> _viewState.value.healthArticles.articles
+            LatestNewsCategories.SCIENCE -> _viewState.value.scienceArticles.articles
+            LatestNewsCategories.SPORTS -> _viewState.value.sportsArticles.articles
+            LatestNewsCategories.TECHNOLOGY -> _viewState.value.technologyArticles.articles
         }
     }
 }
