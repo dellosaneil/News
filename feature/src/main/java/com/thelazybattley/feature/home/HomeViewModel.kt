@@ -30,6 +30,8 @@ class HomeViewModel @Inject constructor(
 
     private val _viewState = MutableStateFlow(value = HomeViewState())
 
+    private val PAGE_SIZE = 10
+
     fun getViewState() = _viewState
 
     init {
@@ -118,7 +120,7 @@ class HomeViewModel @Inject constructor(
         fetchNewsUseCase(
             keyword = null,
             path = NetworkPath.TOP_HEADLINES,
-            pageSize = 5,
+            pageSize = PAGE_SIZE,
             category = category
         ).fold(
             onSuccess = { result ->
