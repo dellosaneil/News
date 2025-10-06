@@ -45,7 +45,7 @@ fun HomeScreen(
         containerColor = LocalNewsColors.current.white,
     ) { contentPadding ->
         LazyColumn(
-            modifier = Modifier.padding(contentPadding),
+            modifier = Modifier.padding(top = contentPadding.calculateTopPadding()),
             verticalArrangement = Arrangement.spacedBy(space = 16.dp)
         ) {
             item {
