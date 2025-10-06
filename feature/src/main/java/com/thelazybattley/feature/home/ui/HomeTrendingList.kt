@@ -15,13 +15,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,6 +34,7 @@ import com.thelazybattley.core.ui.theme.NewsTheme
 import com.thelazybattley.feature.R
 import com.thelazybattley.feature.home.provider.HomeTrendingNewsStateProvider
 import com.thelazybattley.feature.home.state.HomeArticlesState
+import com.thelazybattley.feature.util.CommonSourceDetails
 
 @Composable
 fun HomeTrendingList(
@@ -144,52 +143,7 @@ private fun TrendingNewsCard(
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1
             )
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                GlideImage(
-                    imageModel = { article.source.imageUrl },
-                    modifier = Modifier
-                        .clip(shape = CircleShape)
-                        .size(size = 20.dp),
-                    loading = {
-                        Spacer(
-                            modifier = Modifier
-                                .clip(shape = CircleShape)
-                                .shimmerEffect()
-                                .size(size = 20.dp)
-                        )
-                    },
-                    failure = {
-                        Spacer(
-                            modifier = Modifier
-                                .clip(shape = CircleShape)
-                                .shimmerEffect()
-                                .size(size = 20.dp)
-                        )
-                    }
-                )
-                Text(
-                    text = article.source.name,
-                    style = typography.xSmallText,
-                    color = color.grayScale,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
-                )
-                Icon(
-                    modifier = Modifier.size(size = 14.dp),
-                    contentDescription = null,
-                    painter = painterResource(id = R.drawable.ic_time)
-                )
-                Text(
-                    text = article.timePassed,
-                    style = typography.xSmallText,
-                    color = color.grayScale,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
-                )
-            }
+            CommonSourceDetails(article = article)
         }
     }
 }

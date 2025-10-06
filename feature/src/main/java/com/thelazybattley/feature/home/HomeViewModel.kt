@@ -100,10 +100,12 @@ class HomeViewModel @Inject constructor(
                 null -> state.copy(trendingArticles = homeArticlesState)
             }
         }
-        _viewState.update { state ->
-            state.copy(
-                highlightedArticles = articles
-            )
+        if(category != null) {
+            _viewState.update { state ->
+                state.copy(
+                    highlightedArticles = articles
+                )
+            }
         }
     }
 
