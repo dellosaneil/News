@@ -213,7 +213,18 @@ class HomeTabViewModel @Inject constructor(
 
     override fun onSearchKeyword(keyword: String) {
         _viewState.update { state ->
-            state.copy(keyword = keyword.ifEmpty { null })
+            val defaultState = HomeTabArticlesState()
+            state.copy(
+                keyword = keyword.ifEmpty { null },
+                businessArticles = defaultState,
+                entertainmentArticles = defaultState,
+                generalArticles = defaultState,
+                healthArticles = defaultState,
+                scienceArticles = defaultState,
+                sportsArticles = defaultState,
+                technologyArticles = defaultState,
+                trendingArticles = defaultState
+            )
         }
         viewModelScope.launch {
             launch {
