@@ -18,6 +18,7 @@ import com.thelazybattley.core.ui.theme.NewsTheme
 import com.thelazybattley.core.util.LatestNewsCategories
 import com.thelazybattley.feature.home.HomeScreenCallbacks
 import com.thelazybattley.feature.home.HomeViewModel
+import com.thelazybattley.feature.home.HomeViewModel.Companion.PAGE_SIZE
 import com.thelazybattley.feature.home.state.HomeViewState
 import com.thelazybattley.feature.util.CommonSearchBar
 
@@ -65,8 +66,13 @@ fun HomeScreen(
                     callbacks = callbacks
                 )
             }
+            if(viewState.highlightedArticles.isLoading) {
+                items(count = PAGE_SIZE) {
+                    ShimmerNewsDetailsPreview()
+                }
+            }
             items(
-                items = viewState.highlightedArticles
+                items = viewState.highlightedArticles.articles
             ) { article ->
                 NewsDetailsPreview(
                     article = article,

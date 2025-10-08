@@ -28,9 +28,11 @@ class HomeViewModel @Inject constructor(
     private val getNewsSourceDetailsUseCase: GetNewsSourceDetailsUseCase
 ) : ViewModel(), HomeScreenCallbacks {
 
-    private val _viewState = MutableStateFlow(value = HomeViewState())
+    companion object {
+        const val PAGE_SIZE = 10
+    }
 
-    private val PAGE_SIZE = 10
+    private val _viewState = MutableStateFlow(value = HomeViewState())
 
     fun getViewState() = _viewState
 
@@ -79,7 +81,11 @@ class HomeViewModel @Inject constructor(
         if (category != null) {
             _viewState.update { state ->
                 state.copy(
-                    highlightedArticles = articles
+                    highlightedArticles = HomeArticlesState(
+                        articles = articles,
+                        isLoading =  false,
+                        isError = false
+                    )
                 )
             }
         }
@@ -159,11 +165,23 @@ class HomeViewModel @Inject constructor(
         val articles = articlesForCategory(category = category)
         _viewState.update { state ->
             state.copy(
-                highlightedArticles = articles
+                highlightedArticles = HomeArticlesState(
+                    articles = articles,
+                    isLoading =  false,
+                    isError = false
+                )
             )
         }
         if (articles.isNotEmpty()) return
-
+        _viewState.update { state ->
+            state.copy(
+                highlightedArticles = HomeArticlesState(
+                    articles = emptyList(),
+                    isLoading = true,
+                    isError = false
+                )
+            )
+        }
         viewModelScope.launch(context = Dispatchers.IO) {
             fetchNews(category = category)
         }

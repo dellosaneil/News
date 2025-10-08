@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -74,6 +76,49 @@ fun CommonSourceDetails(modifier: Modifier = Modifier, article: NewsArticle) {
             color = color.grayScale,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1
+        )
+    }
+}
+
+@Composable
+fun ShimmerCommonSourceDetails(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Spacer(
+            modifier = Modifier
+                .clip(
+                    shape = CircleShape
+                )
+                .shimmerEffect()
+                .size(size = 20.dp)
+        )
+        Spacer(
+            modifier = Modifier
+                .clip(
+                    shape = RoundedCornerShape(size = 4.dp)
+                )
+                .shimmerEffect()
+                .size(width = 24.dp, height = 14.dp)
+        )
+        Spacer(
+            modifier = Modifier
+                .clip(
+                    shape = RoundedCornerShape(size = 4.dp)
+                )
+                .shimmerEffect()
+                .size(size = 14.dp)
+        )
+        Spacer(
+            modifier = Modifier
+                .clip(
+                    shape = RoundedCornerShape(size = 4.dp)
+                )
+                .shimmerEffect()
+                .height(14.dp)
+                .weight(1f)
         )
     }
 }

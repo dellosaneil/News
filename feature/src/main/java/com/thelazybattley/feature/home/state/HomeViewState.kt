@@ -1,7 +1,5 @@
 package com.thelazybattley.feature.home.state
 
-import com.thelazybattley.core.network.data.news.NewsArticle
-
 data class HomeViewState(
     val trendingArticles: HomeArticlesState = HomeArticlesState(),
     val newsSources: HomeNewsSources = HomeNewsSources(),
@@ -12,5 +10,5 @@ data class HomeViewState(
     val scienceArticles: HomeArticlesState = HomeArticlesState(),
     val sportsArticles: HomeArticlesState = HomeArticlesState(),
     val technologyArticles: HomeArticlesState = HomeArticlesState(),
-    val highlightedArticles: List<NewsArticle> = emptyList()
+    val highlightedArticles: HomeArticlesState = HomeArticlesState()
 )
