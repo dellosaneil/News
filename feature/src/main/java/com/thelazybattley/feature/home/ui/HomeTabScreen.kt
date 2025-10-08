@@ -54,7 +54,9 @@ fun HomeScreen(
             item {
                 CommonSearchBar(
                     modifier = Modifier.padding(horizontal = 16.dp)
-                )
+                ) { keyword ->
+                    callbacks.onSearchKeyword(keyword = keyword)
+                }
             }
             item {
                 HomeTabTrendingNewsList(

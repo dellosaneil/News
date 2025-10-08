@@ -83,7 +83,7 @@ class HomeTabViewModel @Inject constructor(
                 state.copy(
                     highlightedArticles = HomeTabArticlesState(
                         articles = articles,
-                        isLoading =  false,
+                        isLoading = false,
                         isError = false
                     )
                 )
@@ -123,6 +123,14 @@ class HomeTabViewModel @Inject constructor(
     }
 
     private suspend fun fetchNews(category: LatestNewsCategories?) {
+        updateArticleByCategory(
+            category = category,
+            homeTabArticlesState = HomeTabArticlesState(
+                articles = emptyList(),
+                isLoading = true,
+                isError = false
+            )
+        )
         fetchNewsUseCase(
             keyword = _viewState.value.keyword,
             path = NetworkPath.TOP_HEADLINES,
@@ -138,7 +146,10 @@ class HomeTabViewModel @Inject constructor(
                     isLoading = false,
                     isError = false
                 )
-                updateArticleByCategory(homeTabArticlesState = homeTabArticlesState, category = category)
+                updateArticleByCategory(
+                    homeTabArticlesState = homeTabArticlesState,
+                    category = category
+                )
             }
         )
     }
@@ -167,7 +178,7 @@ class HomeTabViewModel @Inject constructor(
             state.copy(
                 highlightedArticles = HomeTabArticlesState(
                     articles = articles,
-                    isLoading =  false,
+                    isLoading = false,
                     isError = false
                 ),
                 categoryTabSelected = category
@@ -210,6 +221,5 @@ class HomeTabViewModel @Inject constructor(
                 fetchNews(category = _viewState.value.categoryTabSelected)
             }
         }
-
     }
 }

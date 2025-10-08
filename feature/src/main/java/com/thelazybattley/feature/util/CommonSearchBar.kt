@@ -13,10 +13,12 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,13 +29,28 @@ import androidx.compose.ui.unit.dp
 import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.ui.theme.NewsTheme
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
 
+@OptIn(FlowPreview::class)
 @Composable
-fun CommonSearchBar(modifier: Modifier = Modifier) {
+fun CommonSearchBar(
+    modifier: Modifier = Modifier,
+    onSearch: (String) -> Unit
+) {
     val typography = LocalNewsTypography.current
     val colors = LocalNewsColors.current
     var value by rememberSaveable { mutableStateOf("") }
     val color = if (value.isEmpty()) colors.grayScale else colors.black
+    LaunchedEffect(key1 = value) {
+        snapshotFlow { value }
+            .debounce(timeoutMillis = 500L)
+            .collectLatest { keyword ->
+                onSearch(keyword)
+            }
+    }
+
     BasicTextField(
         modifier = modifier
             .fillMaxWidth()
@@ -90,6 +107,8 @@ fun CommonSearchBar(modifier: Modifier = Modifier) {
 @Composable
 private fun PreviewSearchBar() {
     NewsTheme {
-        CommonSearchBar(modifier = Modifier)
+        CommonSearchBar(modifier = Modifier) {
+
+        }
     }
 }
