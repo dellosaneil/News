@@ -124,7 +124,7 @@ class HomeTabViewModel @Inject constructor(
 
     private suspend fun fetchNews(category: LatestNewsCategories?) {
         fetchNewsUseCase(
-            keyword = null,
+            keyword = _viewState.value.keyword,
             path = NetworkPath.TOP_HEADLINES,
             pageSize = PAGE_SIZE,
             category = category
@@ -169,7 +169,8 @@ class HomeTabViewModel @Inject constructor(
                     articles = articles,
                     isLoading =  false,
                     isError = false
-                )
+                ),
+                categoryTabSelected = category
             )
         }
         if (articles.isNotEmpty()) return
@@ -197,5 +198,18 @@ class HomeTabViewModel @Inject constructor(
             LatestNewsCategories.SPORTS -> _viewState.value.sportsArticles.articles
             LatestNewsCategories.TECHNOLOGY -> _viewState.value.technologyArticles.articles
         }
+    }
+
+    override fun onSearchKeyword(keyword: String) {
+        _viewState.update { state ->
+            state.copy(keyword = keyword.ifEmpty { null })
+        }
+        viewModelScope.launch {
+            launch {
+                fetchNews(category = null)
+                fetchNews(category = _viewState.value.categoryTabSelected)
+            }
+        }
+
     }
 }
