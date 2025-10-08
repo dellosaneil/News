@@ -15,17 +15,19 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.NewsTheme
-import com.thelazybattley.core.util.LatestNewsCategories
-import com.thelazybattley.feature.home.HomeScreenCallbacks
-import com.thelazybattley.feature.home.HomeViewModel
-import com.thelazybattley.feature.home.HomeViewModel.Companion.PAGE_SIZE
-import com.thelazybattley.feature.home.state.HomeViewState
+import com.thelazybattley.feature.home.HomeTabCallbacks
+import com.thelazybattley.feature.home.HomeTabViewModel
+import com.thelazybattley.feature.home.HomeTabViewModel.Companion.PAGE_SIZE
+import com.thelazybattley.feature.home.state.HomeTabViewState
+import com.thelazybattley.feature.util.CommonNewsDetailsPreview
 import com.thelazybattley.feature.util.CommonSearchBar
+import com.thelazybattley.feature.util.CommonTopBar
+import com.thelazybattley.feature.util.ShimmerCommonNewsDetailsPreview
 
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    val viewModel = hiltViewModel<HomeViewModel>()
+    val viewModel = hiltViewModel<HomeTabViewModel>()
     val viewState by viewModel.getViewState().collectAsStateWithLifecycle()
     HomeScreen(modifier = modifier, viewState = viewState, callbacks = viewModel)
 }
@@ -33,13 +35,13 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewState: HomeViewState,
-    callbacks: HomeScreenCallbacks
+    viewState: HomeTabViewState,
+    callbacks: HomeTabCallbacks
 ) {
     Scaffold(
         modifier = modifier,
         topBar = {
-            HomeScreenTopBar(
+            CommonTopBar(
                 modifier = Modifier.fillMaxWidth()
             )
         },
@@ -55,26 +57,30 @@ fun HomeScreen(
                 )
             }
             item {
-                HomeTrendingList(
+                HomeTabTrendingNewsList(
                     modifier = Modifier,
                     articles = viewState.trendingArticles
                 )
             }
             stickyHeader {
-                HomeStickyHeader(
+                HomeTabLatestNewsHeader(
                     modifier = Modifier,
                     callbacks = callbacks
                 )
             }
-            if(viewState.highlightedArticles.isLoading) {
+            if (viewState.highlightedArticles.isLoading) {
                 items(count = PAGE_SIZE) {
-                    ShimmerNewsDetailsPreview()
+                    ShimmerCommonNewsDetailsPreview(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp)
+                    )
                 }
             }
             items(
                 items = viewState.highlightedArticles.articles
             ) { article ->
-                NewsDetailsPreview(
+                CommonNewsDetailsPreview(
                     article = article,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -90,12 +96,8 @@ fun HomeScreen(
 private fun PreviewHomeScreen() {
     NewsTheme {
         HomeScreen(
-            modifier = Modifier, viewState = HomeViewState(),
-            callbacks = object : HomeScreenCallbacks {
-                override fun onCategorySelected(category: LatestNewsCategories) {
-                    TODO("Not yet implemented")
-                }
-            }
+            modifier = Modifier, viewState = HomeTabViewState(),
+            callbacks = HomeTabCallbacks.default()
         )
     }
 }

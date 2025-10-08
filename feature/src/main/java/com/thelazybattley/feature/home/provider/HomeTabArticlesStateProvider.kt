@@ -3,13 +3,13 @@ package com.thelazybattley.feature.home.provider
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.thelazybattley.core.network.data.news.NewsArticle
 import com.thelazybattley.core.network.data.news.NewsSource
-import com.thelazybattley.feature.home.state.HomeArticlesState
+import com.thelazybattley.feature.home.state.HomeTabArticlesState
 
-class HomeTrendingNewsStateProvider : PreviewParameterProvider<HomeArticlesState> {
-    override val values: Sequence<HomeArticlesState>
+class HomeTabArticlesStateProvider : PreviewParameterProvider<HomeTabArticlesState> {
+    override val values: Sequence<HomeTabArticlesState>
         get() = sequenceOf(
-            HomeArticlesState(isLoading = true),
-            HomeArticlesState(
+            HomeTabArticlesState(isLoading = true),
+            HomeTabArticlesState(
                 articles = listOf(
                     NewsArticle(
                         author = "Author",

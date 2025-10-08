@@ -10,8 +10,8 @@ import com.thelazybattley.core.network.enums.NetworkPath
 import com.thelazybattley.core.network.usecase.FetchNewsSourcesUseCase
 import com.thelazybattley.core.network.usecase.FetchNewsUseCase
 import com.thelazybattley.core.util.LatestNewsCategories
-import com.thelazybattley.feature.home.state.HomeArticlesState
-import com.thelazybattley.feature.home.state.HomeViewState
+import com.thelazybattley.feature.home.state.HomeTabArticlesState
+import com.thelazybattley.feature.home.state.HomeTabViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -21,18 +21,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class HomeTabViewModel @Inject constructor(
     private val fetchNewsUseCase: FetchNewsUseCase,
     private val fetchNewsSourcesUseCase: FetchNewsSourcesUseCase,
     private val insertNewsSourceDetailsUseCase: InsertNewsSourceDetailsUseCase,
     private val getNewsSourceDetailsUseCase: GetNewsSourceDetailsUseCase
-) : ViewModel(), HomeScreenCallbacks {
+) : ViewModel(), HomeTabCallbacks {
 
     companion object {
         const val PAGE_SIZE = 10
     }
 
-    private val _viewState = MutableStateFlow(value = HomeViewState())
+    private val _viewState = MutableStateFlow(value = HomeTabViewState())
 
     fun getViewState() = _viewState
 
@@ -81,7 +81,7 @@ class HomeViewModel @Inject constructor(
         if (category != null) {
             _viewState.update { state ->
                 state.copy(
-                    highlightedArticles = HomeArticlesState(
+                    highlightedArticles = HomeTabArticlesState(
                         articles = articles,
                         isLoading =  false,
                         isError = false
@@ -89,7 +89,7 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }
-        val homeArticlesState = HomeArticlesState(
+        val homeTabArticlesState = HomeTabArticlesState(
             articles = articles.map { article ->
                 val imageUrl =
                     _viewState.value.newsSources.sources.find { it.id == article.source.id }?.imageUrl
@@ -103,7 +103,7 @@ class HomeViewModel @Inject constructor(
             isLoading = false,
             isError = false
         )
-        updateArticleByCategory(homeArticlesState = homeArticlesState, category = category)
+        updateArticleByCategory(homeTabArticlesState = homeTabArticlesState, category = category)
 
     }
 
@@ -133,30 +133,30 @@ class HomeViewModel @Inject constructor(
                 updateArticleList(articles = result.articles, category = category)
             },
             onFailure = {
-                val homeArticlesState = HomeArticlesState(
+                val homeTabArticlesState = HomeTabArticlesState(
                     articles = emptyList(),
                     isLoading = false,
                     isError = false
                 )
-                updateArticleByCategory(homeArticlesState = homeArticlesState, category = category)
+                updateArticleByCategory(homeTabArticlesState = homeTabArticlesState, category = category)
             }
         )
     }
 
     private fun updateArticleByCategory(
         category: LatestNewsCategories?,
-        homeArticlesState: HomeArticlesState
+        homeTabArticlesState: HomeTabArticlesState
     ) {
         _viewState.update { state ->
             when (category) {
-                LatestNewsCategories.BUSINESS -> state.copy(businessArticles = homeArticlesState)
-                LatestNewsCategories.ENTERTAINMENT -> state.copy(entertainmentArticles = homeArticlesState)
-                LatestNewsCategories.GENERAL -> state.copy(generalArticles = homeArticlesState)
-                LatestNewsCategories.HEALTH -> state.copy(healthArticles = homeArticlesState)
-                LatestNewsCategories.SCIENCE -> state.copy(scienceArticles = homeArticlesState)
-                LatestNewsCategories.SPORTS -> state.copy(sportsArticles = homeArticlesState)
-                LatestNewsCategories.TECHNOLOGY -> state.copy(technologyArticles = homeArticlesState)
-                null -> state.copy(trendingArticles = homeArticlesState)
+                LatestNewsCategories.BUSINESS -> state.copy(businessArticles = homeTabArticlesState)
+                LatestNewsCategories.ENTERTAINMENT -> state.copy(entertainmentArticles = homeTabArticlesState)
+                LatestNewsCategories.GENERAL -> state.copy(generalArticles = homeTabArticlesState)
+                LatestNewsCategories.HEALTH -> state.copy(healthArticles = homeTabArticlesState)
+                LatestNewsCategories.SCIENCE -> state.copy(scienceArticles = homeTabArticlesState)
+                LatestNewsCategories.SPORTS -> state.copy(sportsArticles = homeTabArticlesState)
+                LatestNewsCategories.TECHNOLOGY -> state.copy(technologyArticles = homeTabArticlesState)
+                null -> state.copy(trendingArticles = homeTabArticlesState)
             }
         }
     }
@@ -165,7 +165,7 @@ class HomeViewModel @Inject constructor(
         val articles = articlesForCategory(category = category)
         _viewState.update { state ->
             state.copy(
-                highlightedArticles = HomeArticlesState(
+                highlightedArticles = HomeTabArticlesState(
                     articles = articles,
                     isLoading =  false,
                     isError = false
@@ -175,7 +175,7 @@ class HomeViewModel @Inject constructor(
         if (articles.isNotEmpty()) return
         _viewState.update { state ->
             state.copy(
-                highlightedArticles = HomeArticlesState(
+                highlightedArticles = HomeTabArticlesState(
                     articles = emptyList(),
                     isLoading = true,
                     isError = false

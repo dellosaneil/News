@@ -1,4 +1,4 @@
-package com.thelazybattley.feature.home.ui
+package com.thelazybattley.feature.util
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,13 +22,11 @@ import com.thelazybattley.core.ui.shimmerEffect
 import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.ui.theme.NewsTheme
-import com.thelazybattley.feature.home.provider.HomeTrendingNewsStateProvider
-import com.thelazybattley.feature.home.state.HomeArticlesState
-import com.thelazybattley.feature.util.CommonSourceDetails
-import com.thelazybattley.feature.util.ShimmerCommonSourceDetails
+import com.thelazybattley.feature.home.provider.HomeTabArticlesStateProvider
+import com.thelazybattley.feature.home.state.HomeTabArticlesState
 
 @Composable
-fun NewsDetailsPreview(
+fun CommonNewsDetailsPreview(
     modifier: Modifier = Modifier,
     article: NewsArticle
 ) {
@@ -93,7 +91,7 @@ fun NewsDetailsPreview(
 
 
 @Composable
-fun ShimmerNewsDetailsPreview(modifier: Modifier = Modifier) {
+fun ShimmerCommonNewsDetailsPreview(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(space = 4.dp)
@@ -138,16 +136,16 @@ fun ShimmerNewsDetailsPreview(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun PreviewShimmerNewsDetailsPreview() {
-    ShimmerNewsDetailsPreview()
+    ShimmerCommonNewsDetailsPreview()
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewNewsDetailsPreview(
-    @PreviewParameter(HomeTrendingNewsStateProvider::class) state: HomeArticlesState
+private fun PreviewCommonNewsDetailsPreview(
+    @PreviewParameter(HomeTabArticlesStateProvider::class) state: HomeTabArticlesState
 ) {
     NewsTheme {
-        NewsDetailsPreview(
+        CommonNewsDetailsPreview(
             modifier = Modifier.fillMaxWidth(),
             article = state.articles.first(),
         )

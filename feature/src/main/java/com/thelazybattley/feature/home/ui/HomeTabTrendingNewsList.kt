@@ -31,15 +31,15 @@ import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.ui.theme.NewsTheme
 import com.thelazybattley.feature.R
-import com.thelazybattley.feature.home.provider.HomeTrendingNewsStateProvider
-import com.thelazybattley.feature.home.state.HomeArticlesState
+import com.thelazybattley.feature.home.provider.HomeTabArticlesStateProvider
+import com.thelazybattley.feature.home.state.HomeTabArticlesState
 import com.thelazybattley.feature.util.CommonSourceDetails
 import com.thelazybattley.feature.util.ShimmerCommonSourceDetails
 
 @Composable
-fun HomeTrendingList(
+fun HomeTabTrendingNewsList(
     modifier: Modifier = Modifier,
-    articles: HomeArticlesState
+    articles: HomeTabArticlesState
 ) {
     val typography = LocalNewsTypography.current
     val colors = LocalNewsColors.current
@@ -199,10 +199,10 @@ private fun TrendingCardShimmer(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun PreviewHomeTrendingList(
-    @PreviewParameter(HomeTrendingNewsStateProvider::class) state: HomeArticlesState
+    @PreviewParameter(HomeTabArticlesStateProvider::class) state: HomeTabArticlesState
 ) {
     NewsTheme {
-        HomeTrendingList(
+        HomeTabTrendingNewsList(
             modifier = Modifier.fillMaxWidth(),
             articles = state,
         )
