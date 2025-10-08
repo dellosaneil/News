@@ -1,6 +1,7 @@
 package com.thelazybattley.core.network.response.news
 
 import com.thelazybattley.core.network.data.news.NewsArticle
+import com.thelazybattley.core.util.TimeAgo
 
 data class NewsArticleResponse(
     val author: String?,
@@ -23,6 +24,6 @@ fun NewsArticleResponse.toDomain(): NewsArticle {
         title = title,
         url = url,
         urlToImage = urlToImage ?: "",
-        timePassed = ""
+        timePassed = TimeAgo.Days(value = 0),
     )
 }

@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,6 +26,7 @@ import com.thelazybattley.core.ui.shimmerEffect
 import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.ui.theme.NewsTheme
+import com.thelazybattley.core.util.TimeAgo
 import com.thelazybattley.feature.R
 
 @Composable
@@ -70,8 +72,17 @@ fun CommonSourceDetails(modifier: Modifier = Modifier, article: NewsArticle) {
             contentDescription = null,
             painter = painterResource(id = R.drawable.ic_time)
         )
+        val timeAgo = when (article.timePassed) {
+            is TimeAgo.Days -> R.plurals.days_ago to (article.timePassed as TimeAgo.Days).value
+            is TimeAgo.Hours -> R.plurals.hours_ago to (article.timePassed as TimeAgo.Hours).value
+            is TimeAgo.Minutes -> R.plurals.minutes_ago to (article.timePassed as TimeAgo.Minutes).value
+        }
         Text(
-            text = article.timePassed,
+            text = pluralStringResource(
+                id = timeAgo.first,
+                count = timeAgo.second,
+                timeAgo.second,
+            ),
             style = typography.xSmallText,
             color = color.grayScale,
             overflow = TextOverflow.Ellipsis,
@@ -141,7 +152,7 @@ private fun PreviewCommonSourceDetails() {
                 title = "Title",
                 url = "",
                 urlToImage = "https://sportshub.cbsistatic.com/i/r/2025/09/30/502b0cbc-3743-45bd-9e2c-c0b7653b2b1e/thumbnail/1200x675/134de9ae08c980dab57d37946699f896/aaron-judge-new-york-yankees-imagn-images-8.jpg",
-                timePassed = "a day ago"
+                timePassed = TimeAgo.Days(value = 90),
             )
         )
     }

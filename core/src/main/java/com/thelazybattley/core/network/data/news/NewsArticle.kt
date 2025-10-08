@@ -1,5 +1,7 @@
 package com.thelazybattley.core.network.data.news
 
+import com.thelazybattley.core.util.TimeAgo
+
 data class NewsArticle(
     val author: String,
     val content: String,
@@ -9,5 +11,5 @@ data class NewsArticle(
     val title: String,
     val url: String,
     val urlToImage: String,
-    val timePassed: String
+    val timePassed: TimeAgo
 )
