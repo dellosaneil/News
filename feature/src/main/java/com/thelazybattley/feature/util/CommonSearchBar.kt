@@ -91,7 +91,6 @@ fun CommonSearchBar(
                             )
                             innerTextField()
                         }
-
                     } else {
                         innerTextField()
                     }

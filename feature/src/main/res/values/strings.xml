@@ -4,4 +4,6 @@
     <string name="trending">Trending</string>
     <string name="see_all">See All</string>
     <string name="latest">Latest</string>
+    <string name="no_news_found">No news found</string>
+    <string name="empty_news_subtext">Try searching with different keywords or check your spelling.</string>
 </resources>

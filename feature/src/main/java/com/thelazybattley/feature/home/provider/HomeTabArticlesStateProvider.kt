@@ -9,6 +9,7 @@ import com.thelazybattley.feature.home.state.HomeTabArticlesState
 class HomeTabArticlesStateProvider : PreviewParameterProvider<HomeTabArticlesState> {
     override val values: Sequence<HomeTabArticlesState>
         get() = sequenceOf(
+            HomeTabArticlesState(isLoading = false),
             HomeTabArticlesState(isLoading = true),
             HomeTabArticlesState(
                 articles = listOf(

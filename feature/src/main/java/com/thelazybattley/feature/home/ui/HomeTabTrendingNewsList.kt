@@ -41,30 +41,10 @@ fun HomeTabTrendingNewsList(
     modifier: Modifier = Modifier,
     articles: HomeTabArticlesState
 ) {
-    val typography = LocalNewsTypography.current
-    val colors = LocalNewsColors.current
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(R.string.trending),
-                style = typography.mediumLink,
-                color = colors.black
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Text(
-                text = stringResource(R.string.see_all),
-                style = typography.smallText,
-                color = colors.grayScale
-            )
-        }
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(space = 16.dp)
@@ -81,6 +61,30 @@ fun HomeTabTrendingNewsList(
                 )
             }
         }
+    }
+}
+
+@Composable
+fun HomeTabTrendingHeader(modifier: Modifier = Modifier) {
+    val typography = LocalNewsTypography.current
+    val colors = LocalNewsColors.current
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(R.string.trending),
+            style = typography.mediumLink,
+            color = colors.black
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        Text(
+            text = stringResource(R.string.see_all),
+            style = typography.smallText,
+            color = colors.grayScale
+        )
     }
 }
 
