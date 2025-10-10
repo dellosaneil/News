@@ -212,6 +212,9 @@ class HomeTabViewModel @Inject constructor(
     }
 
     override fun onSearchKeyword(keyword: String) {
+        if(keyword == (_viewState.value.keyword ?: "")) {
+            return
+        }
         _viewState.update { state ->
             val defaultState = HomeTabArticlesState()
             state.copy(

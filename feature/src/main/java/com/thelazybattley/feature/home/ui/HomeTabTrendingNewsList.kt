@@ -55,7 +55,11 @@ fun HomeTabTrendingNewsList(
                 }
                 return@LazyRow
             }
-            items(items = articles.articles) { article ->
+            items(
+                items = articles.articles,
+                key = { article ->
+                    article.title
+                }) { article ->
                 TrendingNewsCard(
                     article = article
                 )
