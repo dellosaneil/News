@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.thelazybattley.news.R
 
-enum class Destination(
+enum class BottomNavigationDestination(
     val route: String,
     @StringRes val label: Int,
     @DrawableRes val icon: Int

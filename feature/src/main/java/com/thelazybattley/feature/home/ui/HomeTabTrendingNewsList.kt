@@ -1,5 +1,6 @@
 package com.thelazybattley.feature.home.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,6 +31,7 @@ import com.thelazybattley.core.ui.shimmerEffect
 import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.ui.theme.NewsTheme
+import com.thelazybattley.core.util.AppDestinations
 import com.thelazybattley.feature.R
 import com.thelazybattley.feature.home.provider.HomeTabArticlesStateProvider
 import com.thelazybattley.feature.home.state.HomeTabArticlesState
@@ -39,7 +41,7 @@ import com.thelazybattley.feature.util.ShimmerCommonSourceDetails
 @Composable
 fun HomeTabTrendingNewsList(
     modifier: Modifier = Modifier,
-    articles: HomeTabArticlesState
+    articles: HomeTabArticlesState,
 ) {
     Column(
         modifier = modifier,
@@ -69,7 +71,10 @@ fun HomeTabTrendingNewsList(
 }
 
 @Composable
-fun HomeTabTrendingHeader(modifier: Modifier = Modifier) {
+fun HomeTabTrendingHeader(
+    modifier: Modifier = Modifier,
+    onNavigate: (AppDestinations) -> Unit,
+) {
     val typography = LocalNewsTypography.current
     val colors = LocalNewsColors.current
     Row(
@@ -87,7 +92,10 @@ fun HomeTabTrendingHeader(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(R.string.see_all),
             style = typography.smallText,
-            color = colors.grayScale
+            color = colors.grayScale,
+            modifier = Modifier.clickable {
+                onNavigate(AppDestinations.SEE_ALL)
+            }
         )
     }
 }

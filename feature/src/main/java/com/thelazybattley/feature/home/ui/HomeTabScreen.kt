@@ -16,6 +16,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.NewsTheme
+import com.thelazybattley.core.util.AppDestinations
 import com.thelazybattley.feature.R
 import com.thelazybattley.feature.home.HomeTabCallbacks
 import com.thelazybattley.feature.home.HomeTabViewModel
@@ -29,18 +30,25 @@ import com.thelazybattley.feature.util.ShimmerCommonNewsDetailsPreview
 
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    onNavigate: (AppDestinations) -> Unit
+) {
     val viewModel = hiltViewModel<HomeTabViewModel>()
     val viewState by viewModel.getViewState().collectAsStateWithLifecycle()
 
-    HomeScreen(modifier = modifier, viewState = viewState, callbacks = viewModel)
+    HomeScreen(
+        modifier = modifier, viewState = viewState, callbacks = viewModel,
+        onNavigate = onNavigate
+    )
 }
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewState: HomeTabViewState,
-    callbacks: HomeTabCallbacks
+    callbacks: HomeTabCallbacks,
+    onNavigate: (AppDestinations) -> Unit
 ) {
     Scaffold(
         modifier = modifier,
@@ -63,7 +71,11 @@ fun HomeScreen(
                 }
             }
             item {
-                HomeTabTrendingHeader()
+                HomeTabTrendingHeader(
+                    modifier = Modifier
+                ) { destination ->
+                    onNavigate(destination)
+                }
             }
             item {
                 if (!viewState.trendingArticles.isLoading && viewState.trendingArticles.articles.isEmpty()) {
@@ -97,6 +109,7 @@ fun HomeScreen(
                         )
                     }
                 }
+
                 viewState.highlightedArticles.isLoading -> {
                     items(count = PAGE_SIZE) {
                         ShimmerCommonNewsDetailsPreview(
@@ -106,6 +119,7 @@ fun HomeScreen(
                         )
                     }
                 }
+
                 else -> {
                     items(
                         items = viewState.highlightedArticles.articles
@@ -130,6 +144,8 @@ private fun PreviewHomeScreen() {
         HomeScreen(
             modifier = Modifier, viewState = HomeTabViewState(),
             callbacks = HomeTabCallbacks.default()
-        )
+        ) {
+
+        }
     }
 }

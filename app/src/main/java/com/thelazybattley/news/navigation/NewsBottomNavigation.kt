@@ -21,27 +21,36 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.LocalNewsTypography
+import com.thelazybattley.core.util.AppDestinations
 import com.thelazybattley.feature.home.ui.HomeScreen
 
 @Composable
-fun NewsNavigation(modifier: Modifier = Modifier) {
+fun NewsBottomNavigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
-    val startDestination = Destination.HOME
+    val startDestination = BottomNavigationDestination.HOME
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
+    val routes = BottomNavigationDestination.entries.map { it.route }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
     Scaffold(
         modifier = modifier,
         containerColor = LocalNewsColors.current.white,
         bottomBar = {
+            if(!routes.contains(element = currentRoute)) {
+                return@Scaffold
+            }
             val colors = LocalNewsColors.current
             NavigationBar(
                 windowInsets = NavigationBarDefaults.windowInsets,
                 containerColor = LocalNewsColors.current.white,
                 modifier = Modifier.shadow(elevation = 8.dp)
             ) {
-                Destination.entries.forEachIndexed { index, destination ->
+                BottomNavigationDestination.entries.forEachIndexed { index, destination ->
                     val isSelected = selectedDestination == index
                     val tint = if (isSelected) colors.primary else colors.grayScale
                     NavigationBarItem(
@@ -89,7 +98,7 @@ fun NewsNavigation(modifier: Modifier = Modifier) {
 @Composable
 fun AppNavHost(
     navController: NavHostController,
-    startDestination: Destination,
+    startDestination: BottomNavigationDestination,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -97,12 +106,21 @@ fun AppNavHost(
         navController = navController,
         startDestination = startDestination.route
     ) {
-        Destination.entries.forEach { destination ->
+        BottomNavigationDestination.entries.forEach { destination ->
             composable(destination.route) {
                 when (destination) {
-                    Destination.HOME -> HomeScreen()
-                    Destination.EXPLORE -> Text("SEARCH")
-                    Destination.BOOKMARK -> Text("BOOKMARK")
+                    BottomNavigationDestination.HOME -> HomeScreen { destination ->
+                        navController.navigate(route = destination.route)
+                    }
+                    BottomNavigationDestination.EXPLORE -> Text("SEARCH")
+                    BottomNavigationDestination.BOOKMARK -> Text("BOOKMARK")
+                }
+            }
+        }
+        AppDestinations.entries.forEach { destination ->
+            composable(route = destination.route) {
+                when (destination) {
+                    AppDestinations.SEE_ALL -> Text("SEE ALL")
                 }
             }
         }

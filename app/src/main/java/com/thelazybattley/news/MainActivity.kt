@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.thelazybattley.news.navigation.NewsNavigation
+import com.thelazybattley.news.navigation.NewsBottomNavigation
 import com.thelazybattley.core.ui.theme.NewsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NewsTheme {
-                NewsNavigation()
+                NewsBottomNavigation()
             }
         }
     }
