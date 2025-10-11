@@ -4,8 +4,10 @@ import com.thelazybattley.core.db.usecase.GetNewsSourceDetailsUseCase
 import com.thelazybattley.core.db.usecase.InsertNewsSourceDetailsUseCase
 import com.thelazybattley.core.db.usecase.impl.GetNewsSourceDetailsUseCaseImpl
 import com.thelazybattley.core.db.usecase.impl.InsertNewsSourceDetailsUseCaseImpl
+import com.thelazybattley.core.network.usecase.FetchNewsPagination
 import com.thelazybattley.core.network.usecase.FetchNewsSourcesUseCase
 import com.thelazybattley.core.network.usecase.FetchNewsUseCase
+import com.thelazybattley.core.network.usecase.impl.FetchNewsPaginationImpl
 import com.thelazybattley.core.network.usecase.impl.FetchNewsSourcesUseCaseImpl
 import com.thelazybattley.core.network.usecase.impl.FetchNewsUseCaseImpl
 import com.thelazybattley.core.util.usecase.ComputeTimePassedUseCase
@@ -39,5 +41,9 @@ abstract class UseCaseModule {
     @ViewModelScoped
     @Binds
     abstract fun bindInsertNewsSourceDetailsUseCase(impl: InsertNewsSourceDetailsUseCaseImpl): InsertNewsSourceDetailsUseCase
+
+    @ViewModelScoped
+    @Binds
+    abstract fun bindFetchNewsPagination(impl: FetchNewsPaginationImpl): FetchNewsPagination
 
 }

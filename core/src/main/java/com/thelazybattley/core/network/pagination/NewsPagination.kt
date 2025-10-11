@@ -1,4 +1,4 @@
-package com.thelazybattley.feature.home.pagination
+package com.thelazybattley.core.network.pagination
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -17,7 +17,7 @@ class NewsPagination(
             LoadResult.Page(
                 data = response.articles,
                 prevKey = null,
-                nextPage
+                nextKey = nextPage
             )
         } catch (exception: Exception) {
             LoadResult.Error(throwable = exception)
