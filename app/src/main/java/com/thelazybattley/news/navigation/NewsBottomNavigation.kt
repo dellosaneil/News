@@ -27,6 +27,7 @@ import com.thelazybattley.core.ui.theme.LocalNewsColors
 import com.thelazybattley.core.ui.theme.LocalNewsTypography
 import com.thelazybattley.core.util.AppDestinations
 import com.thelazybattley.feature.home.ui.HomeScreen
+import com.thelazybattley.feature.seeall.ui.SeeAllScreen
 
 @Composable
 fun NewsBottomNavigation(modifier: Modifier = Modifier) {
@@ -120,7 +121,7 @@ fun AppNavHost(
         AppDestinations.entries.forEach { destination ->
             composable(route = destination.route) {
                 when (destination) {
-                    AppDestinations.SEE_ALL -> Text("SEE ALL")
+                    AppDestinations.SEE_ALL -> SeeAllScreen()
                 }
             }
         }

@@ -13,11 +13,10 @@ class NewsPagination(
         return try {
             val nextPage = params.key ?: 1
             val response = callback(nextPage)
-
             LoadResult.Page(
                 data = response.articles,
                 prevKey = null,
-                nextKey = nextPage
+                nextKey = nextPage.inc()
             )
         } catch (exception: Exception) {
             LoadResult.Error(throwable = exception)

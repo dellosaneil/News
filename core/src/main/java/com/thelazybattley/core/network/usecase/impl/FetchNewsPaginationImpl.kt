@@ -1,6 +1,5 @@
 package com.thelazybattley.core.network.usecase.impl
 
-import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -16,6 +15,11 @@ import javax.inject.Inject
 class FetchNewsPaginationImpl @Inject constructor(
     private val repository: NewsRepository
 ) : FetchNewsPagination {
+
+    companion object {
+        const val PAGE_SIZE = 10
+    }
+
     override suspend fun invoke(
         keyword: String?,
         path: NetworkPath,
