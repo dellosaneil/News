@@ -32,6 +32,7 @@ import com.thelazybattley.feature.util.ShimmerCommonNewsDetailsPreview
 fun HomeScreen(modifier: Modifier = Modifier) {
     val viewModel = hiltViewModel<HomeTabViewModel>()
     val viewState by viewModel.getViewState().collectAsStateWithLifecycle()
+
     HomeScreen(modifier = modifier, viewState = viewState, callbacks = viewModel)
 }
 
@@ -85,35 +86,38 @@ fun HomeScreen(
                     callbacks = callbacks
                 )
             }
-            if(!viewState.highlightedArticles.isLoading && viewState.highlightedArticles.articles.isEmpty()) {
-                item {
-                    CommonEmptyNews(
-                        modifier = Modifier,
-                        title = stringResource(R.string.no_news_found),
-                        subtext = stringResource(R.string.empty_news_subtext)
+            when {
+                !viewState.highlightedArticles.isLoading && viewState.highlightedArticles.articles.isEmpty() -> {
+                    item {
+                        CommonEmptyNews(
+                            modifier = Modifier,
+                            title = stringResource(R.string.no_news_found),
+                            subtext = stringResource(R.string.empty_news_subtext)
 
-                    )
+                        )
+                    }
                 }
-            }
-            if (viewState.highlightedArticles.isLoading) {
-                items(count = PAGE_SIZE) {
-                    ShimmerCommonNewsDetailsPreview(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 8.dp)
-                    )
+                viewState.highlightedArticles.isLoading -> {
+                    items(count = PAGE_SIZE) {
+                        ShimmerCommonNewsDetailsPreview(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp)
+                        )
+                    }
                 }
-            }
-
-            items(
-                items = viewState.highlightedArticles.articles
-            ) { article ->
-                CommonNewsDetailsPreview(
-                    article = article,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp)
-                )
+                else -> {
+                    items(
+                        items = viewState.highlightedArticles.articles
+                    ) { article ->
+                        CommonNewsDetailsPreview(
+                            article = article,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp)
+                        )
+                    }
+                }
             }
         }
     }

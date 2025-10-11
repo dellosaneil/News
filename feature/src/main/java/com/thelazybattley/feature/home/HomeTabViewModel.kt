@@ -135,7 +135,8 @@ class HomeTabViewModel @Inject constructor(
             keyword = _viewState.value.keyword,
             path = NetworkPath.TOP_HEADLINES,
             pageSize = PAGE_SIZE,
-            category = category
+            category = category,
+            page = 1,
         ).fold(
             onSuccess = { result ->
                 updateArticleList(articles = result.articles, category = category)
@@ -212,7 +213,7 @@ class HomeTabViewModel @Inject constructor(
     }
 
     override fun onSearchKeyword(keyword: String) {
-        if(keyword == (_viewState.value.keyword ?: "")) {
+        if (keyword == (_viewState.value.keyword ?: "")) {
             return
         }
         _viewState.update { state ->

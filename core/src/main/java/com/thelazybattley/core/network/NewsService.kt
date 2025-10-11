@@ -14,7 +14,8 @@ interface NewsService {
         @Query("q") keyword: String?,
         @Query("pageSize") pageSize: Int,
         @Query("country") country: String = "US",
-        @Query("category") category: String?
+        @Query("category") category: String?,
+        @Query("page") page: Int
     ): NewsResponse
 
     @GET("top-headlines/sources")

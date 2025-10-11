@@ -8,7 +8,8 @@ interface FetchNewsUseCase {
 
     suspend operator fun invoke(
         keyword: String?, path: NetworkPath, pageSize: Int,
-        category: LatestNewsCategories?
+        category: LatestNewsCategories?,
+        page: Int
     ): Result<News>
 
 }

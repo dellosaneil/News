@@ -9,7 +9,8 @@ interface NewsRepository {
 
     suspend fun fetchNews(
         keyword: String?, path: NetworkPath, pageSize: Int,
-        category: LatestNewsCategories?
+        category: LatestNewsCategories?,
+        page: Int
     ): Result<News>
 
     suspend fun fetchNewsSources(): Result<List<NewsSourceDetails>>

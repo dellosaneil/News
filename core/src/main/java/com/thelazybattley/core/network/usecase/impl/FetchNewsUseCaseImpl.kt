@@ -16,11 +16,13 @@ class FetchNewsUseCaseImpl @Inject constructor(
         keyword: String?,
         path: NetworkPath,
         pageSize: Int,
-        category: LatestNewsCategories?
+        category: LatestNewsCategories?,
+        page: Int
     ): Result<News> {
         val result = repository.fetchNews(
             keyword = keyword, path = path, pageSize = pageSize,
             category = category,
+            page = page,
         ).getOrElse(
             onFailure = { exception ->
                 return Result.failure(exception = exception)

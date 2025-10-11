@@ -59,6 +59,8 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     implementation(libs.landscapist.glide)
     implementation(libs.timber)
+    implementation(libs.pagination.runtime)
+    implementation(libs.pagination.compose)
 
     implementation(project(":core"))
 }

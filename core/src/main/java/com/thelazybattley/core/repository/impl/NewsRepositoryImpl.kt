@@ -21,7 +21,8 @@ class NewsRepositoryImpl @Inject constructor(
         keyword: String?,
         path: NetworkPath,
         pageSize: Int,
-        category: LatestNewsCategories?
+        category: LatestNewsCategories?,
+        page: Int,
     ): Result<News> {
         return try {
             Result.success(
@@ -30,6 +31,7 @@ class NewsRepositoryImpl @Inject constructor(
                     path = path.path,
                     pageSize = pageSize,
                     category = category?.query,
+                    page = page,
                 ).toDomain()
             )
         } catch (exception: Exception) {

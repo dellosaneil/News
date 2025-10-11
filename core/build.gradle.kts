@@ -69,5 +69,4 @@ dependencies {
     implementation(libs.bundles.room)
     ksp(libs.room.compile)
     implementation(libs.timber)
-    implementation(libs.pagination.runtime)
 }
